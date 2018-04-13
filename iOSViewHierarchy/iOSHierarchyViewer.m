@@ -40,8 +40,8 @@ static HVCoreDataHandler *coreDataHandler = nil;
     while (temp_addr != NULL) {
       if (temp_addr->ifa_addr->sa_family == AF_INET) {
         NSLog(@"(%@): %@",
-              [NSString stringWithUTF8String:temp_addr->ifa_name],
-              [NSString stringWithFormat:@"http://%@:%d", [NSString stringWithUTF8String:inet_ntoa(((struct sockaddr_in *)temp_addr->ifa_addr)->sin_addr)], IOS_HIERARCHY_VIEWER_PORT]);
+              @(temp_addr->ifa_name),
+              [NSString stringWithFormat:@"http://%@:%d", @(inet_ntoa(((struct sockaddr_in *)temp_addr->ifa_addr)->sin_addr)), IOS_HIERARCHY_VIEWER_PORT]);
       }
       temp_addr = temp_addr->ifa_next;
     }
@@ -55,16 +55,16 @@ static HVCoreDataHandler *coreDataHandler = nil;
   if (server) {
     return YES;
   }
-  server = [[HVHTTPServer server] retain];
+  server = [HVHTTPServer server];
   [server registerHandler:[HVHierarchyHandler handler] forUrl:@"/snapshot"];
-  [server registerHandler:[HVBase64StaticFile handler:WEBAPP_INDEX_UI] forUrls:[NSArray arrayWithObjects:@"", @"/", @"/index", @"/index.html", nil]];
+  [server registerHandler:[HVBase64StaticFile handler:WEBAPP_INDEX_UI] forUrls:@[@"", @"/", @"/index", @"/index.html"]];
   [server registerHandler:[HVBase64StaticFile handler:WEBAPP_INDEX_CORE] forUrl:@"/core.html"];
   [server registerHandler:[HVBase64StaticFile handler:WEBAPP_JQUERY] forUrl:@"/jquery.js"];
   [server registerHandler:[HVBase64StaticFile handler:WEBAPP_NAVBAR] forUrl:@"/navbar.js"];
   [server registerHandler:[HVBase64StaticFile handler:WEBAPP_STYLE] forUrl:@"/style.css"];
   [server registerHandler:[HVPreviewHandler handler] forUrl:@"/preview"];
   [server registerHandler:[HVPropertyEditorHandler handler] forUrl:@"/update"];
-  coreDataHandler = [[HVCoreDataHandler handler] retain];
+  coreDataHandler = [HVCoreDataHandler handler];
   [server registerHandler:coreDataHandler forUrl:@"/core"];
   if ([server start:IOS_HIERARCHY_VIEWER_PORT]) {
     [iOSHierarchyViewer logServiceAdresses];
@@ -76,10 +76,8 @@ static HVCoreDataHandler *coreDataHandler = nil;
 + (void)stop
 {
   if (server) {
-    [coreDataHandler release];
     coreDataHandler = nil;
     [server stop];
-    [server release];
     server = nil;
   }
 }

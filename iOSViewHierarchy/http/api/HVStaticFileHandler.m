@@ -11,23 +11,21 @@
 
 + (HVStaticFileHandler *)handler:(NSString *)filePath
 {
-  return [[[HVStaticFileHandler alloc] initWithFileName:filePath] autorelease];
+  return [[HVStaticFileHandler alloc] initWithFileName:filePath];
 }
 
-- (id)initWithFileName:(NSString *)filePath
+- (instancetype)initWithFileName:(NSString *)filePath
 {
   self = [super init];
   if (self) {
-    file = [filePath retain];
+    file = filePath;
   }
   return self;
 }
 
 - (void)dealloc
 {
-  [file release];
   file = nil;
-  [super dealloc];
 }
 
 - (BOOL)handleRequest:(NSString *)url withHeaders:(NSDictionary *)headers query:(NSDictionary *)query address:(NSString *)address onSocket:(int)socket
@@ -38,7 +36,6 @@
       NSData *data = [[NSData alloc] initWithContentsOfFile:filePath];
       if (data) {
         [self writeData:data toSocket:socket];
-        [data release];
       }
     }
     return YES;

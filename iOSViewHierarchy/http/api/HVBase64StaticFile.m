@@ -10,23 +10,21 @@
 
 + (HVBase64StaticFile *)handler:(NSString *)base64String
 {
-  return [[[HVBase64StaticFile alloc] initWith:base64String] autorelease];
+  return [[HVBase64StaticFile alloc] initWith:base64String];
 }
 
-- (id) initWith:(NSString*)base64String;
+- (instancetype) initWith:(NSString*)base64String;
 {
   self = [super init];
   if (self) {
-    cachedResponse = [[self base64DataFromString:base64String] retain];
+    cachedResponse = [self base64DataFromString:base64String];
   }
   return self;
 }
 
 - (void)dealloc
 {
-  [cachedResponse release];
   cachedResponse = nil;
-  [super dealloc];
 }
 
 - (NSData *)base64DataFromString:(NSString *)string
@@ -44,9 +42,9 @@
 
   ixtext = 0;
 
-  tempcstring = (const unsigned char *)[string UTF8String];
+  tempcstring = (const unsigned char *)string.UTF8String;
 
-  lentext = [string length];
+  lentext = string.length;
 
   theData = [NSMutableData dataWithCapacity:lentext];
 

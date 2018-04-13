@@ -21,10 +21,10 @@ CGFloat handleNotFinite(CGFloat value)
 
 + (UIView *)recursiveSearchForView:(long)_id parent:(UIView *)parent
 {
-  if ((void *)parent == (void *)_id) {
+  if ((__bridge void *)parent == (void *)_id) {
     return parent;
   }
-  for (UIView *v in [parent subviews]) {
+  for (UIView *v in parent.subviews) {
     UIView *result = [HVHierarchyScanner recursiveSearchForView:_id parent:v];
     if (result) {
       return result;
@@ -37,7 +37,7 @@ CGFloat handleNotFinite(CGFloat value)
 {
   UIApplication *app = [UIApplication sharedApplication];
   if (app) {
-    for (UIView *v in [app windows]) {
+    for (UIView *v in app.windows) {
       UIView *result = [HVHierarchyScanner recursiveSearchForView:_id parent:v];
       if (result) {
         return result;
@@ -50,7 +50,7 @@ CGFloat handleNotFinite(CGFloat value)
 + (NSString *)UIColorToNSString:(UIColor *)color
 {
   if (color) {
-    CGColorSpaceRef colorSpace = CGColorGetColorSpace([color CGColor]);
+    CGColorSpaceRef colorSpace = CGColorGetColorSpace(color.CGColor);
     CGColorSpaceModel model = CGColorSpaceGetModel(colorSpace);
 
     NSString *prefix = @"A???";
@@ -80,16 +80,15 @@ CGFloat handleNotFinite(CGFloat value)
         prefix = @"A???";
         break;
     }
-    size_t n = CGColorGetNumberOfComponents([color CGColor]);
-    const CGFloat *componentsArray = CGColorGetComponents([color CGColor]);
+    size_t n = CGColorGetNumberOfComponents(color.CGColor);
+    const CGFloat *componentsArray = CGColorGetComponents(color.CGColor);
 
     NSMutableArray *array = [[NSMutableArray alloc] initWithCapacity:n];
     //[array addObject:[NSNumber numberWithInt:(int)(CGColorGetAlpha([color CGColor])*255.0f)]];
     for (size_t i = 0; i < n; ++i) {
-      [array addObject:[NSNumber numberWithInt:(int)(componentsArray[i] * 255.0f)]];
+      [array addObject:@((int)(componentsArray[i] * 255.0f))];
     }
     NSString *components = [array componentsJoinedByString:@","];
-    [array release];
 
     return [NSString stringWithFormat:@"%@(%@)", prefix, components];
   }
@@ -133,7 +132,7 @@ static NSString* NSStringFromCATransform3D(CATransform3D transform)
 {
   unsigned int outCount, i;
   objc_property_t *properties = class_copyPropertyList(class, &outCount);
-  NSMutableArray *propertiesArray = [[[NSMutableArray alloc] initWithCapacity:10] autorelease];
+  NSMutableArray *propertiesArray = [[NSMutableArray alloc] initWithCapacity:10];
 
   // handle UITextInputTraits properties which aren't KVO compilant
   BOOL conformsToUITextInputTraits = [class conformsToProtocol:@protocol(UITextInputTraits)];
@@ -143,7 +142,7 @@ static NSString* NSStringFromCATransform3D(CATransform3D transform)
 
     NSMutableDictionary *propertyDescription = [[NSMutableDictionary alloc] initWithCapacity:2];
 
-    NSString *propertyName = [[[NSString alloc] initWithCString:property_getName(property) encoding:[NSString defaultCStringEncoding]] autorelease];
+    NSString *propertyName = [[NSString alloc] initWithCString:property_getName(property) encoding:[NSString defaultCStringEncoding]];
 
     if (conformsToUITextInputTraits) {
       if (protocol_getMethodDescription(@protocol(UITextInputTraits), NSSelectorFromString(propertyName), NO, YES).name != NULL) {
@@ -158,9 +157,9 @@ static NSString* NSStringFromCATransform3D(CATransform3D transform)
     [propertyDescription setValue:propertyName forKey:@"name"];
 
     NSArray *attributes = [propertyType componentsSeparatedByString:@","];
-    NSString *typeAttribute = [attributes objectAtIndex:0];
+    NSString *typeAttribute = attributes[0];
     NSString *type = [typeAttribute substringFromIndex:1];
-    const char *rawPropertyType = [type UTF8String];
+    const char *rawPropertyType = type.UTF8String;
 
     BOOL readValue = NO;
     BOOL checkOnlyIfNil = NO;
@@ -187,7 +186,7 @@ static NSString* NSStringFromCATransform3D(CATransform3D transform)
       @catch (NSException *exception) {
         propertyValue = nil;
       }
-      [propertyDescription setValue:([propertyValue boolValue] ? @"YES" : @"NO") forKey:@"value"];
+      [propertyDescription setValue:(propertyValue.boolValue ? @"YES" : @"NO") forKey:@"value"];
     } else if (strcmp(rawPropertyType, @encode(char)) == 0) {
       [propertyDescription setValue:@"char" forKey:@"type"];
     } else if ( type && ( [type hasPrefix:@"{CGRect="] ) ) {
@@ -199,7 +198,7 @@ static NSString* NSStringFromCATransform3D(CATransform3D transform)
       @catch (NSException *exception) {
         propertyValue = nil;
       }
-      [propertyDescription setValue:[NSString stringWithFormat:@"%@", NSStringFromCGRect([propertyValue CGRectValue])] forKey:@"value"];
+      [propertyDescription setValue:[NSString stringWithFormat:@"%@", NSStringFromCGRect(propertyValue.CGRectValue)] forKey:@"value"];
       [propertyDescription setValue:@"CGRect" forKey:@"type"];
     } else if ( type && ( [type hasPrefix:@"{CGPoint="] ) ) {
       readValue = NO;
@@ -210,7 +209,7 @@ static NSString* NSStringFromCATransform3D(CATransform3D transform)
       @catch (NSException *exception) {
         propertyValue = nil;
       }
-      [propertyDescription setValue:[NSString stringWithFormat:@"%@", NSStringFromCGPoint([propertyValue CGPointValue])] forKey:@"value"];
+      [propertyDescription setValue:[NSString stringWithFormat:@"%@", NSStringFromCGPoint(propertyValue.CGPointValue)] forKey:@"value"];
       [propertyDescription setValue:@"CGPoint" forKey:@"type"];
     } else if ( type && ( [type hasPrefix:@"{CGSize="] ) ) {
       readValue = NO;
@@ -221,13 +220,13 @@ static NSString* NSStringFromCATransform3D(CATransform3D transform)
       @catch (NSException *exception) {
         propertyValue = nil;
       }
-      [propertyDescription setValue:[NSString stringWithFormat:@"%@", NSStringFromCGSize([propertyValue CGSizeValue])] forKey:@"value"];
+      [propertyDescription setValue:[NSString stringWithFormat:@"%@", NSStringFromCGSize(propertyValue.CGSizeValue)] forKey:@"value"];
       [propertyDescription setValue:@"CGSize" forKey:@"type"];
     } else if ( type && ( [type hasPrefix:@"{CGAffineTransform="] ) ) {
       readValue = NO;
       CGAffineTransform *propertyValue;
       @try {
-        propertyValue = (CGAffineTransform*)[obj valueForKey:propertyName];
+        propertyValue = (__bridge CGAffineTransform*)[obj valueForKey:propertyName];
       }
       @catch (NSException *exception) {
         propertyValue = nil;
@@ -238,17 +237,17 @@ static NSString* NSStringFromCATransform3D(CATransform3D transform)
       readValue = NO;
       CATransform3D *propertyValue;
       @try {
-        propertyValue = (CATransform3D*)[obj valueForKey:propertyName];
+        propertyValue = (__bridge CATransform3D*)[obj valueForKey:propertyName];
       }
       @catch (NSException *exception) {
         propertyValue = nil;
       }
       [propertyDescription setValue:[NSString stringWithFormat:@"%@", NSStringFromCATransform3D(*propertyValue)] forKey:@"value"];
       [propertyDescription setValue:@"CATransform3D" forKey:@"type"];
-    } else if (type && [type hasPrefix:@"@"] && [type length] > 3) {
+    } else if (type && [type hasPrefix:@"@"] && type.length > 3) {
       readValue = YES;
       checkOnlyIfNil = YES;
-      NSString *typeClassName = [type substringWithRange:NSMakeRange(2, [type length] - 3)];
+      NSString *typeClassName = [type substringWithRange:NSMakeRange(2, type.length - 3)];
       [propertyDescription setValue:typeClassName forKey:@"type"];
       if ([typeClassName isEqualToString:[[UIColor class] description]]) {
         readValue = NO;
@@ -286,8 +285,6 @@ static NSString* NSStringFromCATransform3D(CATransform3D transform)
       }
     }
     [propertiesArray addObject:propertyDescription];
-    [propertyType release];
-    [propertyDescription release];
   }
   free(properties);
   return propertiesArray;
@@ -295,21 +292,21 @@ static NSString* NSStringFromCATransform3D(CATransform3D transform)
 
 + (NSArray *)UIGeometryProperties:(UIView *)view
 {
-  NSMutableArray *properties = [[[NSMutableArray alloc] initWithCapacity:10] autorelease];
+  NSMutableArray *properties = [[NSMutableArray alloc] initWithCapacity:10];
 
-  NSDictionary *frame = [NSDictionary dictionaryWithObjectsAndKeys:@"frame", @"name", @"CGRect", @"type", NSStringFromCGRect(view.frame), @"value", nil];
+  NSDictionary *frame = @{@"name": @"frame", @"type": @"CGRect", @"value": NSStringFromCGRect(view.frame)};
   [properties addObject:frame];
 
-  NSDictionary *bounds = [NSDictionary dictionaryWithObjectsAndKeys:@"bounds", @"name", @"CGRect", @"type", NSStringFromCGRect(view.bounds), @"value", nil];
+  NSDictionary *bounds = @{@"name": @"bounds", @"type": @"CGRect", @"value": NSStringFromCGRect(view.bounds)};
   [properties addObject:bounds];
 
-  NSDictionary *center = [NSDictionary dictionaryWithObjectsAndKeys:@"center", @"name", @"CGPoint", @"type", NSStringFromCGPoint(view.center), @"value", nil];
+  NSDictionary *center = @{@"name": @"center", @"type": @"CGPoint", @"value": NSStringFromCGPoint(view.center)};
   [properties addObject:center];
   
-  NSDictionary *transform = [NSDictionary dictionaryWithObjectsAndKeys:@"transform", @"name", @"CGAffineTransform", @"type", NSStringFromCGAffineTransform2(view.transform), @"value", nil];
+  NSDictionary *transform = @{@"name": @"transform", @"type": @"CGAffineTransform", @"value": NSStringFromCGAffineTransform2(view.transform)};
   [properties addObject:transform];
   
-  NSDictionary *layerTransform = [NSDictionary dictionaryWithObjectsAndKeys:@"layer.transform", @"name", @"CATransform3D", @"type", NSStringFromCATransform3D(view.layer.transform), @"value", nil];
+  NSDictionary *layerTransform = @{@"name": @"layer.transform", @"type": @"CATransform3D", @"value": NSStringFromCATransform3D(view.layer.transform)};
   [properties addObject:layerTransform];
 
   return properties;
@@ -317,27 +314,27 @@ static NSString* NSStringFromCATransform3D(CATransform3D transform)
 
 + (NSArray *)UIViewRenderingProperties:(UIView *)view
 {
-  NSMutableArray *properties = [[[NSMutableArray alloc] initWithCapacity:10] autorelease];
+  NSMutableArray *properties = [[NSMutableArray alloc] initWithCapacity:10];
 
-  NSDictionary *clipToBounds = [NSDictionary dictionaryWithObjectsAndKeys:@"clipToBounds", @"name", @"BOOL", @"type", view.clipsToBounds ? @"YES" : @"NO", @"value", nil];
+  NSDictionary *clipToBounds = @{@"name": @"clipToBounds", @"type": @"BOOL", @"value": view.clipsToBounds ? @"YES" : @"NO"};
   [properties addObject:clipToBounds];
 
-  NSDictionary *backgroundColor = [NSDictionary dictionaryWithObjectsAndKeys:@"backgroundColor", @"name", @"UIColor", @"type", [HVHierarchyScanner UIColorToNSString:view.backgroundColor], @"value", nil];
+  NSDictionary *backgroundColor = @{@"name": @"backgroundColor", @"type": @"UIColor", @"value": [HVHierarchyScanner UIColorToNSString:view.backgroundColor]};
   [properties addObject:backgroundColor];
 
-  NSDictionary *alpha = [NSDictionary dictionaryWithObjectsAndKeys:@"alpha", @"name", @"CGFloat", @"type", [NSString stringWithFormat:@"%f", view.alpha], @"value", nil];
+  NSDictionary *alpha = @{@"name": @"alpha", @"type": @"CGFloat", @"value": [NSString stringWithFormat:@"%f", view.alpha]};
   [properties addObject:alpha];
 
-  NSDictionary *opaque = [NSDictionary dictionaryWithObjectsAndKeys:@"opaque", @"name", @"BOOL", @"type", view.opaque ? @"YES" : @"NO", @"value", nil];
+  NSDictionary *opaque = @{@"name": @"opaque", @"type": @"BOOL", @"value": view.opaque ? @"YES" : @"NO"};
   [properties addObject:opaque];
 
-  NSDictionary *hidden = [NSDictionary dictionaryWithObjectsAndKeys:@"hidden", @"name", @"BOOL", @"type", view.hidden ? @"YES" : @"NO", @"value", nil];
+  NSDictionary *hidden = @{@"name": @"hidden", @"type": @"BOOL", @"value": view.hidden ? @"YES" : @"NO"};
   [properties addObject:hidden];
 
-  NSDictionary *contentMode = [NSDictionary dictionaryWithObjectsAndKeys:@"contentMode", @"name", @"UIViewContentMode", @"type", [NSString stringWithFormat:@"%ld", (long)view.contentMode], @"value", nil];
+  NSDictionary *contentMode = @{@"name": @"contentMode", @"type": @"UIViewContentMode", @"value": [NSString stringWithFormat:@"%ld", (long)view.contentMode]};
   [properties addObject:contentMode];
 
-  NSDictionary *clearContextBeforeDrawing = [NSDictionary dictionaryWithObjectsAndKeys:@"clearsContextBeforeDrawing", @"name", @"BOOL", @"type", view.clearsContextBeforeDrawing ? @"YES" : @"NO", @"value", nil];
+  NSDictionary *clearContextBeforeDrawing = @{@"name": @"clearsContextBeforeDrawing", @"type": @"BOOL", @"value": view.clearsContextBeforeDrawing ? @"YES" : @"NO"};
   [properties addObject:clearContextBeforeDrawing];
 
   
@@ -347,12 +344,12 @@ static NSString* NSStringFromCATransform3D(CATransform3D transform)
 + (NSDictionary *)recursivePropertiesScan:(UIView *)view
 {
   if (view) {
-    NSMutableDictionary *viewDescription = [[[NSMutableDictionary alloc] initWithCapacity:10] autorelease];
+    NSMutableDictionary *viewDescription = [[NSMutableDictionary alloc] initWithCapacity:10];
     // put base properties
     NSString *className = [[view class] description];
     NSString *objectName = view.accessibilityLabel ? [NSString stringWithFormat:@"%@ : %@", view.accessibilityLabel, className] : className;
     [viewDescription setValue:objectName forKey:@"class"];
-    [viewDescription setValue:[NSNumber numberWithLong:(long)view] forKey:@"id"];
+    [viewDescription setValue:@((long)view) forKey:@"id"];
     
     [viewDescription setValue:NSStringFromCATransform3D(view.layer.transform) forKey:@"layer_transform"];
     [viewDescription setValue:[NSNumber numberWithFloat:handleNotFinite(view.layer.bounds.origin.x)] forKey:@"layer_bounds_x"];
@@ -365,16 +362,16 @@ static NSString* NSStringFromCATransform3D(CATransform3D transform)
     [viewDescription setValue:[NSNumber numberWithFloat:handleNotFinite(view.layer.anchorPoint.y)] forKey:@"layer_anchor_y"];
 
     // put properties from super classes
-    NSMutableArray *properties = [[[NSMutableArray alloc] initWithCapacity:10] autorelease];
+    NSMutableArray *properties = [[NSMutableArray alloc] initWithCapacity:10];
 
     // put UIGeometry properties
-    NSMutableDictionary *geometryProperties = [[[NSMutableDictionary alloc] initWithCapacity:2] autorelease];
+    NSMutableDictionary *geometryProperties = [[NSMutableDictionary alloc] initWithCapacity:2];
     [geometryProperties setValue:@"UIGeometry" forKey:@"name"];
     [geometryProperties setValue:[HVHierarchyScanner UIGeometryProperties:view] forKey:@"props"];
     [properties addObject:geometryProperties];
 
     // put UIRendering
-    NSMutableDictionary *renderingProperties = [[[NSMutableDictionary alloc] initWithCapacity:2] autorelease];
+    NSMutableDictionary *renderingProperties = [[NSMutableDictionary alloc] initWithCapacity:2];
     [renderingProperties setValue:@"UIViewRendering" forKey:@"name"];
     [renderingProperties setValue:[HVHierarchyScanner UIViewRenderingProperties:view] forKey:@"props"];
     [properties addObject:renderingProperties];
@@ -382,7 +379,7 @@ static NSString* NSStringFromCATransform3D(CATransform3D transform)
     // put rest
     Class class = [view class];
     while (class != [NSObject class]) {
-      NSMutableDictionary *classProperties = [[[NSMutableDictionary alloc] initWithCapacity:2] autorelease];
+      NSMutableDictionary *classProperties = [[NSMutableDictionary alloc] initWithCapacity:2];
       [classProperties setValue:[HVHierarchyScanner classProperties:class object:view] forKey:@"props"];
       [classProperties setValue:[class description] forKey:@"name"];
       [properties addObject:classProperties];
@@ -390,15 +387,15 @@ static NSString* NSStringFromCATransform3D(CATransform3D transform)
     }
     
     // put CALayer
-    NSMutableDictionary *layerProperties = [[[NSMutableDictionary alloc] initWithCapacity:2] autorelease];
+    NSMutableDictionary *layerProperties = [[NSMutableDictionary alloc] initWithCapacity:2];
     [layerProperties setValue:@"CALayer" forKey:@"name"];
     [layerProperties setValue:[HVHierarchyScanner classProperties:[CALayer class] object:view.layer] forKey:@"props"];
     [properties addObject:layerProperties];
     
     [viewDescription setValue:properties forKey:@"props"];
     
-    NSMutableArray *subViewsArray = [[[NSMutableArray alloc] initWithCapacity:10] autorelease];
-    for (UIView *subview in [view subviews]) {
+    NSMutableArray *subViewsArray = [[NSMutableArray alloc] initWithCapacity:10];
+    for (UIView *subview in view.subviews) {
       NSDictionary *subviewDictionary = [HVHierarchyScanner recursivePropertiesScan:subview];
       if (subviewDictionary) {
         [subViewsArray addObject:subviewDictionary];
@@ -413,7 +410,7 @@ static NSString* NSStringFromCATransform3D(CATransform3D transform)
 + (NSArray *)hierarchySnapshot
 {
   UIApplication *app = [UIApplication sharedApplication];
-  NSMutableArray *windowViews = [[[NSMutableArray alloc] initWithCapacity:10] autorelease];
+  NSMutableArray *windowViews = [[NSMutableArray alloc] initWithCapacity:10];
 
   if (app && app.windows) {
     void (^gatherProperties)() = ^() {

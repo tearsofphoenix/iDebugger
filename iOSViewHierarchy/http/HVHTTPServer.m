@@ -17,10 +17,10 @@
 
 + (HVHTTPServer*) server
 {
-  return [[[HVHTTPServer alloc] init] autorelease];
+  return [[HVHTTPServer alloc] init];
 }
 
-- (id)init
+- (instancetype)init
 {
   self = [super init];
   if (self) {
@@ -32,9 +32,7 @@
 - (void)dealloc
 {
   [self stop];
-  [handlers release];
   handlers = nil;
-  [super dealloc];
 }
 
 - (void)cleanSocket:(int)socket
@@ -45,7 +43,7 @@
 
 - (NSData *)line:(int)socket
 {
-  NSMutableData *lineData = [[[NSMutableData alloc] initWithCapacity:100] autorelease];
+  NSMutableData *lineData = [[NSMutableData alloc] initWithCapacity:100];
   char buff[1];
   ssize_t r = 0;
   do {
@@ -62,23 +60,23 @@
 
 - (NSDictionary *)queryParameters:(NSURL *)url
 {
-  NSMutableDictionary *parameters = [[[NSMutableDictionary alloc] initWithCapacity:10] autorelease];
-  NSString *urlQuery = [url query];
+  NSMutableDictionary *parameters = [[NSMutableDictionary alloc] initWithCapacity:10];
+  NSString *urlQuery = url.query;
   if (urlQuery) {
     NSArray *tokens = [urlQuery componentsSeparatedByString:@"&"];
     if (tokens) {
-      for (int i = 0; i < [tokens count]; ++i) {
-        NSString *parameter = [tokens objectAtIndex:i];
+      for (int i = 0; i < tokens.count; ++i) {
+        NSString *parameter = tokens[i];
         if (parameter) {
           NSArray *paramTokens = [parameter componentsSeparatedByString:@"="];
-          if ([paramTokens count] >= 2) {
-            NSString *paramName = [paramTokens objectAtIndex:0];
-            NSString *paramValue = [paramTokens objectAtIndex:1];
+          if (paramTokens.count >= 2) {
+            NSString *paramName = paramTokens[0];
+            NSString *paramValue = paramTokens[1];
             if (paramValue && paramName) {
               NSString *escapedName = [paramName stringByReplacingPercentEscapesUsingEncoding:NSASCIIStringEncoding];
               NSString *escapedValue = [paramValue stringByReplacingPercentEscapesUsingEncoding:NSASCIIStringEncoding];
               if (escapedName && escapedValue) {
-                [parameters setObject:escapedValue forKey:escapedName];
+                parameters[escapedName] = escapedValue;
               }
             }
           }
@@ -91,21 +89,21 @@
 
 - (NSDictionary *)headers:(int)socket
 {
-  NSMutableDictionary *headersDictionary = [[[NSMutableDictionary alloc] initWithCapacity:10] autorelease];
+  NSMutableDictionary *headersDictionary = [[NSMutableDictionary alloc] initWithCapacity:10];
   NSData *tmpLine = nil;
 
   do {
     tmpLine = [self line:socket];
     if (tmpLine) {
-      NSUInteger lineLength = [tmpLine length];
+      NSUInteger lineLength = tmpLine.length;
       if (lineLength > 0) {
-        NSString *tmpLineString = [[[NSString alloc] initWithData:tmpLine encoding:NSASCIIStringEncoding] autorelease];
+        NSString *tmpLineString = [[NSString alloc] initWithData:tmpLine encoding:NSASCIIStringEncoding];
         NSArray *headerTokens = [tmpLineString componentsSeparatedByString:@":"];
-        if (headerTokens && [headerTokens count] >= 2) {
-          NSString *headerName = [headerTokens objectAtIndex:0];
-          NSString *headerValue = [headerTokens objectAtIndex:1];
+        if (headerTokens && headerTokens.count >= 2) {
+          NSString *headerName = headerTokens[0];
+          NSString *headerValue = headerTokens[1];
           if (headerName && headerValue) {
-            [headersDictionary setObject:headerValue forKey:headerName];
+            headersDictionary[headerName] = headerValue;
           }
         }
       }
@@ -122,46 +120,46 @@
 {
   NSArray *args = (NSArray *)data;
 
-  NSString *address = [args objectAtIndex:0];
-  int socket = [(NSNumber *)[args objectAtIndex:1] intValue];
+  NSString *address = args[0];
+  int socket = ((NSNumber *)args[1]).intValue;
 
-  NSAutoreleasePool *pool = [[NSAutoreleasePool alloc] init];
+  @autoreleasepool {
 
-  NSData *httpInitLine = [self line:socket];
-  if (httpInitLine) {
-    NSString *httpInitLineString = [[[NSString alloc] initWithData:httpInitLine encoding:NSASCIIStringEncoding] autorelease];
-    NSLog(@"REQUEST HTTP INIT LINE: %@", httpInitLineString);
-    NSArray *initLineTokens = [httpInitLineString componentsSeparatedByString:@" "];
+    NSData *httpInitLine = [self line:socket];
+    if (httpInitLine) {
+      NSString *httpInitLineString = [[NSString alloc] initWithData:httpInitLine encoding:NSASCIIStringEncoding];
+      NSLog(@"REQUEST HTTP INIT LINE: %@", httpInitLineString);
+      NSArray *initLineTokens = [httpInitLineString componentsSeparatedByString:@" "];
 
-    NSString *requestMethod = nil;
-    NSURL *requestUrl = nil;
+      NSString *requestMethod = nil;
+      NSURL *requestUrl = nil;
 
-    if ([initLineTokens count] >= 3) {
-      requestMethod = [initLineTokens objectAtIndex:0];
-      NSString *requestUrlString = [initLineTokens objectAtIndex:1];
-      if (requestUrlString) {
-        requestUrl = [NSURL URLWithString:requestUrlString];
-      }
-    }
-
-    NSDictionary *requestQueryParams = [self queryParameters:requestUrl];
-    NSDictionary *requestHeaders = [self headers:socket];
-
-    if (requestUrl) {
-      NSString *relativePath = [requestUrl relativePath];
-      if (relativePath) {
-        NSObject <HVRequestHandler> *handler = nil;
-        @synchronized (handlers) {
-          handler = [handlers objectForKey:relativePath];
-        }
-        if (handler) {
-          [handler handleRequest:relativePath withHeaders:requestHeaders query:requestQueryParams address:address onSocket:socket];
+      if (initLineTokens.count >= 3) {
+        requestMethod = initLineTokens[0];
+        NSString *requestUrlString = initLineTokens[1];
+        if (requestUrlString) {
+          requestUrl = [NSURL URLWithString:requestUrlString];
         }
       }
+
+      NSDictionary *requestQueryParams = [self queryParameters:requestUrl];
+      NSDictionary *requestHeaders = [self headers:socket];
+
+      if (requestUrl) {
+        NSString *relativePath = requestUrl.relativePath;
+        if (relativePath) {
+          NSObject <HVRequestHandler> *handler = nil;
+          @synchronized (handlers) {
+            handler = handlers[relativePath];
+          }
+          if (handler) {
+            [handler handleRequest:relativePath withHeaders:requestHeaders query:requestQueryParams address:address onSocket:socket];
+          }
+        }
+      }
     }
+    [self cleanSocket:socket];
   }
-  [self cleanSocket:socket];
-  [pool release];
 }
 
 - (NSString *)sockaddrToNSString:(struct sockaddr *)addr
@@ -181,30 +179,30 @@
       return nil;
     }
   }
-  return [NSString stringWithUTF8String:str];
+  return @(str);
 }
 
 - (void)acceptClientConnectionsLoop
 {
-  NSAutoreleasePool *pool = [[NSAutoreleasePool alloc] init];
-  while (!done) {
-    struct sockaddr clientAddr;
-    unsigned int addrLen = sizeof(clientAddr);
-    const int clientSocket = accept(listenSocket, (struct sockaddr *)&clientAddr, &addrLen);
-    if (clientSocket == -1) {
-      done = YES;
-    } else {
-      int no_sig_pipe = 1;
-      setsockopt(clientSocket, SOL_SOCKET, SO_NOSIGPIPE, &no_sig_pipe, sizeof no_sig_pipe);
-      NSString *clientIpAddress = [self sockaddrToNSString:&clientAddr];
-      NSArray *args = [NSArray arrayWithObjects:clientIpAddress, [NSNumber numberWithInt:clientSocket], nil];
-      if (clientIpAddress) {
-        [self performSelectorInBackground:@selector(handleClientConnection:) withObject:args];
+  @autoreleasepool {
+    while (!done) {
+      struct sockaddr clientAddr;
+      unsigned int addrLen = sizeof(clientAddr);
+      const int clientSocket = accept(listenSocket, (struct sockaddr *)&clientAddr, &addrLen);
+      if (clientSocket == -1) {
+        done = YES;
+      } else {
+        int no_sig_pipe = 1;
+        setsockopt(clientSocket, SOL_SOCKET, SO_NOSIGPIPE, &no_sig_pipe, sizeof no_sig_pipe);
+        NSString *clientIpAddress = [self sockaddrToNSString:&clientAddr];
+        NSArray *args = @[clientIpAddress, @(clientSocket)];
+        if (clientIpAddress) {
+          [self performSelectorInBackground:@selector(handleClientConnection:) withObject:args];
+        }
       }
     }
+    [self cleanSocket:listenSocket];
   }
-  [self cleanSocket:listenSocket];
-  [pool release];
 }
 
 - (void)registerHandler:(NSObject <HVRequestHandler> *)handler forUrl:(NSString *)url

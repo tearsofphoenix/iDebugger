@@ -13,6 +13,6 @@
 
 + (HVBase64StaticFile *)handler:(NSString*)base64String;
 
-- (id) initWith:(NSString*)base64String;
+- (instancetype) initWith:(NSString*)base64String NS_DESIGNATED_INITIALIZER;
 
 @end

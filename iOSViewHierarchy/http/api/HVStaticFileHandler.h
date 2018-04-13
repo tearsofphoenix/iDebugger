@@ -14,6 +14,6 @@
 
 + (HVStaticFileHandler *)handler:(NSString *)filePath;
 
-- (id)initWithFileName:(NSString *)filePath;
+- (instancetype)initWithFileName:(NSString *)filePath NS_DESIGNATED_INITIALIZER;
 
 @end

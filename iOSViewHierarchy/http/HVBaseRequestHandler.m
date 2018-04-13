@@ -25,21 +25,21 @@
 
 - (BOOL)writeData:(NSData*)data toSocket:(int)socket
 {
-  return [self writeRawData:(char*)[data bytes] length:[data length] toSocket:socket];
+  return [self writeRawData:(char*)data.bytes length:data.length toSocket:socket];
 }
 
 - (BOOL)writeText:(NSString *)text toSocket:(int)socket
 {
   if (text) {
     NSData *data = [text dataUsingEncoding:NSUTF8StringEncoding];
-    return [self writeRawData:(char *)[data bytes] length:[data length] toSocket:socket];
+    return [self writeRawData:(char *)data.bytes length:data.length toSocket:socket];
   }
   return NO;
 }
 
 - (BOOL)writeJSONErrorResponse:(NSString*)error toSocket:(int)socket
 {
-  return [self writeJSONResponse:[NSDictionary dictionaryWithObject:error forKey:@"error"] toSocket:socket];
+  return [self writeJSONResponse:@{@"error": error} toSocket:socket];
 }
 
 - (BOOL)writeJSONResponse:(id)object toSocket:(int)socket

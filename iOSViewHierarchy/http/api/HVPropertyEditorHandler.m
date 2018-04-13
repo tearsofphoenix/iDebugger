@@ -11,17 +11,17 @@
 
 + (HVPropertyEditorHandler *)handler
 {
-  return [[[HVPropertyEditorHandler alloc] init] autorelease];
+  return [[HVPropertyEditorHandler alloc] init];
 }
 
 - (BOOL)handleRequest:(NSString *)url withHeaders:(NSDictionary *)headers query:(NSDictionary *)query address:(NSString *)address onSocket:(int)socket
 {
   if ([super handleRequest:url withHeaders:headers query:query address:address onSocket:socket]) {
-    if ([query objectForKey:@"id"] && [query objectForKey:@"type"] && [query objectForKey:@"value"] && [query objectForKey:@"name"]) {
-      long id = [(NSString *)[query objectForKey:@"id"] longLongValue];
-      NSString *type = [query objectForKey:@"type"];
-      NSString *value = [query objectForKey:@"value"];
-      NSString *name = [query objectForKey:@"name"];
+    if (query[@"id"] && query[@"type"] && query[@"value"] && query[@"name"]) {
+      long id = ((NSString *)query[@"id"]).longLongValue;
+      NSString *type = query[@"type"];
+      NSString *value = query[@"value"];
+      NSString *name = query[@"name"];
       UIView *view = [HVHierarchyScanner findViewById:id];
       if (view) {
         if ([type isEqualToString:@"CGRect"]) {
@@ -30,7 +30,7 @@
             return [self writeJSONErrorResponse:@"Bad value format" toSocket:socket];
           } else {
             [view setValue:[NSValue valueWithCGRect:newRect] forKey:name];
-            return [self writeJSONResponse:[NSDictionary dictionaryWithObject:@"OK" forKey:@"response"] toSocket:socket];
+            return [self writeJSONResponse:@{@"response": @"OK"} toSocket:socket];
           }
         } else if ([type isEqualToString:@"CGPoint"]) {
           CGPoint newPoint = CGPointFromString(value);
@@ -38,7 +38,7 @@
             return [self writeJSONErrorResponse:@"Bad value format" toSocket:socket];
           } else {
             [view setValue:[NSValue valueWithCGPoint:newPoint] forKey:name];
-            return [self writeJSONResponse:[NSDictionary dictionaryWithObject:@"OK" forKey:@"response"] toSocket:socket];
+            return [self writeJSONResponse:@{@"response": @"OK"} toSocket:socket];
           }
         }
       }
