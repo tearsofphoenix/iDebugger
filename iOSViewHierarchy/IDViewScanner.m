@@ -6,7 +6,7 @@
 //
 
 #import "IDViewScanner.h"
-#import "HVHierarchyScanner.h"
+#import "IDScanner.h"
 #import <CoreGraphics/CoreGraphics.h>
 
 static NSMutableDictionary *kMap = nil;

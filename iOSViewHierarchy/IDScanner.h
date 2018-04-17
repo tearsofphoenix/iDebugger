@@ -1,5 +1,5 @@
 //
-//  HVHierarchyScanner.h
+//   IDScanner.h
 //
 //  Copyright (c) 2015 Damian Kolakowski. All rights reserved.
 //
@@ -17,7 +17,7 @@ extern NSString* NSStringFromCATransform3D(CATransform3D transform);
 
 extern NSString* NSStringFromCGAffineTransform2(CGAffineTransform transform);
 
-@interface HVHierarchyScanner : NSObject
+@interface  IDScanner : NSObject
 
 + (NSDictionary *)recursivePropertiesScan:(UIView *)view;
 

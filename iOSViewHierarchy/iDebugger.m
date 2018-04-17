@@ -8,7 +8,7 @@
 #import "GCDWebServerFileResponse.h"
 #import "GCDWebServerDataResponse.h"
 
-#import "HVHierarchyScanner.h"
+#import "IDScanner.h"
 
 #import "iDebugger.h"
 
@@ -41,7 +41,7 @@ static iDebugger *kDebugger = nil;
                         requestClass: [GCDWebServerRequest class]
                    asyncProcessBlock: (^(__kindof GCDWebServerRequest * _Nonnull request, GCDWebServerCompletionBlock  _Nonnull completionBlock)
                                        {
-                                           NSArray *hierarchyDict = [HVHierarchyScanner hierarchySnapshot];
+                                           NSArray *hierarchyDict = [ IDScanner hierarchySnapshot];
                                            CGRect screenRect = [[UIScreen mainScreen] bounds];
                                            NSDictionary *responseDic = (@{
                                                                           @"windows": hierarchyDict,
@@ -83,7 +83,7 @@ static iDebugger *kDebugger = nil;
     if (queryID)
     {
         long id = [queryID longLongValue];
-        UIView *view = [HVHierarchyScanner findViewById: id];
+        UIView *view = [ IDScanner findViewById: id];
         if (view)
         {
             UIGraphicsBeginImageContext(view.bounds.size);

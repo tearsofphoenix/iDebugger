@@ -23,28 +23,22 @@
 		6A0A168C20804F6100167432 /* iDebugKit.h in Headers */ = {isa = PBXBuildFile; fileRef = 6A0A168A20804F6100167432 /* iDebugKit.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		6A0A169520804F8100167432 /* HVCoreDataHandler.m in Sources */ = {isa = PBXBuildFile; fileRef = 7CE2ED1315E40CDE00684792 /* HVCoreDataHandler.m */; };
 		6A0A169620804F8100167432 /* HVBaseRequestHandler.m in Sources */ = {isa = PBXBuildFile; fileRef = 7CB3BD63158A44CF0001D338 /* HVBaseRequestHandler.m */; };
-		6A0A169820804F8100167432 /* HVHierarchyScanner.m in Sources */ = {isa = PBXBuildFile; fileRef = 7CE955D11540C5CB0042A03A /* HVHierarchyScanner.m */; };
+		6A0A169820804F8100167432 /* IDScanner.m in Sources */ = {isa = PBXBuildFile; fileRef = 7CE955D11540C5CB0042A03A /* IDScanner.m */; };
 		6A0A169B20804FA600167432 /* index_ui.html in Resources */ = {isa = PBXBuildFile; fileRef = 7CB3BD75158A45690001D338 /* index_ui.html */; };
 		6A0A169C20804FA600167432 /* index_core.html in Resources */ = {isa = PBXBuildFile; fileRef = 7C11395315E58063004AED3F /* index_core.html */; };
-		6A0A169D20804FA600167432 /* jquery.js in Resources */ = {isa = PBXBuildFile; fileRef = 7CDFD54415E55B97001D5841 /* jquery.js */; };
 		6A0A169E20804FA600167432 /* navbar.js in Resources */ = {isa = PBXBuildFile; fileRef = 7C11395715E580BA004AED3F /* navbar.js */; };
 		6A0A169F20804FA600167432 /* style.css in Resources */ = {isa = PBXBuildFile; fileRef = 7C11391615E57573004AED3F /* style.css */; };
 		6AEC08312085C171005605BE /* IDViewScanner.h in Headers */ = {isa = PBXBuildFile; fileRef = 6AEC082F2085C171005605BE /* IDViewScanner.h */; };
 		6AEC08322085C171005605BE /* IDViewScanner.h in Headers */ = {isa = PBXBuildFile; fileRef = 6AEC082F2085C171005605BE /* IDViewScanner.h */; };
 		6AEC08332085C171005605BE /* IDViewScanner.m in Sources */ = {isa = PBXBuildFile; fileRef = 6AEC08302085C171005605BE /* IDViewScanner.m */; };
 		6AEC08342085C171005605BE /* IDViewScanner.m in Sources */ = {isa = PBXBuildFile; fileRef = 6AEC08302085C171005605BE /* IDViewScanner.m */; };
-		7C11391B15E57627004AED3F /* webapp_jquery.h in Headers */ = {isa = PBXBuildFile; fileRef = 7C11391815E57627004AED3F /* webapp_jquery.h */; };
-		7C11391C15E57627004AED3F /* webapp_style.h in Headers */ = {isa = PBXBuildFile; fileRef = 7C11391915E57627004AED3F /* webapp_style.h */; };
-		7C11395615E58076004AED3F /* webapp_index_core.h in Headers */ = {isa = PBXBuildFile; fileRef = 7C11395515E58076004AED3F /* webapp_index_core.h */; };
-		7C11395A15E580C4004AED3F /* webapp_navbar.h in Headers */ = {isa = PBXBuildFile; fileRef = 7C11395915E580C4004AED3F /* webapp_navbar.h */; };
-		7C12E28215E7E292009D2F26 /* webapp_index_ui.h in Headers */ = {isa = PBXBuildFile; fileRef = 7C12E28115E7E292009D2F26 /* webapp_index_ui.h */; };
 		7C861E38153DF2E000935C95 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 7C861E37153DF2E000935C95 /* Foundation.framework */; };
 		7CB3BD70158A44CF0001D338 /* HVBaseRequestHandler.h in Headers */ = {isa = PBXBuildFile; fileRef = 7CB3BD62158A44CF0001D338 /* HVBaseRequestHandler.h */; };
 		7CB3BD71158A44CF0001D338 /* HVBaseRequestHandler.m in Sources */ = {isa = PBXBuildFile; fileRef = 7CB3BD63158A44CF0001D338 /* HVBaseRequestHandler.m */; };
 		7CE2ED1415E40CDE00684792 /* HVCoreDataHandler.h in Headers */ = {isa = PBXBuildFile; fileRef = 7CE2ED1215E40CDE00684792 /* HVCoreDataHandler.h */; };
 		7CE2ED1515E40CDE00684792 /* HVCoreDataHandler.m in Sources */ = {isa = PBXBuildFile; fileRef = 7CE2ED1315E40CDE00684792 /* HVCoreDataHandler.m */; };
-		7CE955DE1540C5CB0042A03A /* HVHierarchyScanner.h in Headers */ = {isa = PBXBuildFile; fileRef = 7CE955D01540C5CB0042A03A /* HVHierarchyScanner.h */; };
-		7CE955DF1540C5CB0042A03A /* HVHierarchyScanner.m in Sources */ = {isa = PBXBuildFile; fileRef = 7CE955D11540C5CB0042A03A /* HVHierarchyScanner.m */; };
+		7CE955DE1540C5CB0042A03A /* IDScanner.h in Headers */ = {isa = PBXBuildFile; fileRef = 7CE955D01540C5CB0042A03A /* IDScanner.h */; };
+		7CE955DF1540C5CB0042A03A /* IDScanner.m in Sources */ = {isa = PBXBuildFile; fileRef = 7CE955D11540C5CB0042A03A /* IDScanner.m */; };
 		8981E3AA90C16C36FADD6367 /* libPods-iDebugger.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 146904B3C345F9D2992F766F /* libPods-iDebugger.a */; };
 		D2B823BDFDC766BF4E669E01 /* libPods-iDebugKit.a in Frameworks */ = {isa = PBXBuildFile; fileRef = CE6E84DBFF75C6E4EC860A24 /* libPods-iDebugKit.a */; };
 /* End PBXBuildFile section */
@@ -88,13 +82,8 @@
 		6AEC082F2085C171005605BE /* IDViewScanner.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = IDViewScanner.h; sourceTree = "<group>"; };
 		6AEC08302085C171005605BE /* IDViewScanner.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = IDViewScanner.m; sourceTree = "<group>"; };
 		7C11391615E57573004AED3F /* style.css */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.css; path = style.css; sourceTree = "<group>"; };
-		7C11391815E57627004AED3F /* webapp_jquery.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = webapp_jquery.h; sourceTree = "<group>"; };
-		7C11391915E57627004AED3F /* webapp_style.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = webapp_style.h; sourceTree = "<group>"; };
 		7C11395315E58063004AED3F /* index_core.html */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.html; path = index_core.html; sourceTree = "<group>"; };
-		7C11395515E58076004AED3F /* webapp_index_core.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = webapp_index_core.h; sourceTree = "<group>"; };
 		7C11395715E580BA004AED3F /* navbar.js */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.javascript; path = navbar.js; sourceTree = "<group>"; };
-		7C11395915E580C4004AED3F /* webapp_navbar.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = webapp_navbar.h; sourceTree = "<group>"; };
-		7C12E28115E7E292009D2F26 /* webapp_index_ui.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = webapp_index_ui.h; sourceTree = "<group>"; };
 		7C861E34153DF2E000935C95 /* libiDebugger.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libiDebugger.a; sourceTree = BUILT_PRODUCTS_DIR; };
 		7C861E37153DF2E000935C95 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
 		7C861E3B153DF2E000935C95 /* iDebugger-Prefix.pch */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "iDebugger-Prefix.pch"; sourceTree = "<group>"; };
@@ -102,11 +91,10 @@
 		7CB3BD63158A44CF0001D338 /* HVBaseRequestHandler.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HVBaseRequestHandler.m; sourceTree = "<group>"; };
 		7CB3BD75158A45690001D338 /* index_ui.html */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.html; path = index_ui.html; sourceTree = "<group>"; };
 		7CD97A5415B299E500CBAAA1 /* QuartzCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = QuartzCore.framework; path = System/Library/Frameworks/QuartzCore.framework; sourceTree = SDKROOT; };
-		7CDFD54415E55B97001D5841 /* jquery.js */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.javascript; path = jquery.js; sourceTree = "<group>"; };
 		7CE2ED1215E40CDE00684792 /* HVCoreDataHandler.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HVCoreDataHandler.h; sourceTree = "<group>"; };
 		7CE2ED1315E40CDE00684792 /* HVCoreDataHandler.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HVCoreDataHandler.m; sourceTree = "<group>"; };
-		7CE955D01540C5CB0042A03A /* HVHierarchyScanner.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HVHierarchyScanner.h; sourceTree = "<group>"; };
-		7CE955D11540C5CB0042A03A /* HVHierarchyScanner.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HVHierarchyScanner.m; sourceTree = "<group>"; };
+		7CE955D01540C5CB0042A03A /* IDScanner.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = IDScanner.h; sourceTree = "<group>"; };
+		7CE955D11540C5CB0042A03A /* IDScanner.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = IDScanner.m; sourceTree = "<group>"; };
 		8F1D57E7E791F2FC16FB7F1D /* Pods-iDebugger.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-iDebugger.debug.xcconfig"; path = "Pods/Target Support Files/Pods-iDebugger/Pods-iDebugger.debug.xcconfig"; sourceTree = "<group>"; };
 		BA454C8C45AB7C88F76A17C5 /* Pods-iDebugKit.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-iDebugKit.release.xcconfig"; path = "Pods/Target Support Files/Pods-iDebugKit/Pods-iDebugKit.release.xcconfig"; sourceTree = "<group>"; };
 		BB2DF33B08AE99229A4BD4DA /* Pods-iDebugger.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-iDebugger.release.xcconfig"; path = "Pods/Target Support Files/Pods-iDebugger/Pods-iDebugger.release.xcconfig"; sourceTree = "<group>"; };
@@ -210,8 +198,8 @@
 			children = (
 				7CB3BD74158A45690001D338 /* webapp */,
 				7CB3BD56158A44CF0001D338 /* http */,
-				7CE955D01540C5CB0042A03A /* HVHierarchyScanner.h */,
-				7CE955D11540C5CB0042A03A /* HVHierarchyScanner.m */,
+				7CE955D01540C5CB0042A03A /* IDScanner.h */,
+				7CE955D11540C5CB0042A03A /* IDScanner.m */,
 				6A026B4420848AFE007CBA5F /* iDebugger.h */,
 				6A026B4520848AFE007CBA5F /* iDebugger.m */,
 				6AEC082F2085C171005605BE /* IDViewScanner.h */,
@@ -251,14 +239,8 @@
 		7CB3BD74158A45690001D338 /* webapp */ = {
 			isa = PBXGroup;
 			children = (
-				7C12E28115E7E292009D2F26 /* webapp_index_ui.h */,
-				7C11395515E58076004AED3F /* webapp_index_core.h */,
-				7C11395915E580C4004AED3F /* webapp_navbar.h */,
-				7C11391815E57627004AED3F /* webapp_jquery.h */,
-				7C11391915E57627004AED3F /* webapp_style.h */,
 				7CB3BD75158A45690001D338 /* index_ui.html */,
 				7C11395315E58063004AED3F /* index_core.html */,
-				7CDFD54415E55B97001D5841 /* jquery.js */,
 				7C11395715E580BA004AED3F /* navbar.js */,
 				7C11391615E57573004AED3F /* style.css */,
 			);
@@ -293,16 +275,11 @@
 			isa = PBXHeadersBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				7CE955DE1540C5CB0042A03A /* HVHierarchyScanner.h in Headers */,
+				7CE955DE1540C5CB0042A03A /* IDScanner.h in Headers */,
 				7CB3BD70158A44CF0001D338 /* HVBaseRequestHandler.h in Headers */,
 				7CE2ED1415E40CDE00684792 /* HVCoreDataHandler.h in Headers */,
-				7C11391B15E57627004AED3F /* webapp_jquery.h in Headers */,
-				7C11391C15E57627004AED3F /* webapp_style.h in Headers */,
 				6A026B4620848AFE007CBA5F /* iDebugger.h in Headers */,
-				7C11395615E58076004AED3F /* webapp_index_core.h in Headers */,
 				6AEC08312085C171005605BE /* IDViewScanner.h in Headers */,
-				7C11395A15E580C4004AED3F /* webapp_navbar.h in Headers */,
-				7C12E28215E7E292009D2F26 /* webapp_index_ui.h in Headers */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -425,7 +402,6 @@
 			files = (
 				6A0A169B20804FA600167432 /* index_ui.html in Resources */,
 				6A0A169C20804FA600167432 /* index_core.html in Resources */,
-				6A0A169D20804FA600167432 /* jquery.js in Resources */,
 				6A0A169E20804FA600167432 /* navbar.js in Resources */,
 				6A0A169F20804FA600167432 /* style.css in Resources */,
 			);
@@ -536,7 +512,7 @@
 				6A0A169620804F8100167432 /* HVBaseRequestHandler.m in Sources */,
 				6AEC08342085C171005605BE /* IDViewScanner.m in Sources */,
 				6A026B4920848AFE007CBA5F /* iDebugger.m in Sources */,
-				6A0A169820804F8100167432 /* HVHierarchyScanner.m in Sources */,
+				6A0A169820804F8100167432 /* IDScanner.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -544,7 +520,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				7CE955DF1540C5CB0042A03A /* HVHierarchyScanner.m in Sources */,
+				7CE955DF1540C5CB0042A03A /* IDScanner.m in Sources */,
 				6A026B4820848AFE007CBA5F /* iDebugger.m in Sources */,
 				6AEC08332085C171005605BE /* IDViewScanner.m in Sources */,
 				7CB3BD71158A44CF0001D338 /* HVBaseRequestHandler.m in Sources */,

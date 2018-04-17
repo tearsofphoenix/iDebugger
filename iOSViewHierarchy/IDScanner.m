@@ -1,5 +1,5 @@
 //
-//  HVHierarchyScanner.m
+//   IDScanner.m
 //
 //  Copyright (c) 2015 Damian Kolakowski. All rights reserved.
 //
@@ -7,13 +7,13 @@
 #import <objc/runtime.h>
 #import <math.h>
 #import <QuartzCore/QuartzCore.h>
-#import "HVHierarchyScanner.h"
+#import "IDScanner.h"
 #import "IDViewScanner.h"
 
 static NSArray *kPropertyBlackList = nil;
 static NSArray *kClassIgnoreList = nil;
 
-@implementation HVHierarchyScanner
+@implementation  IDScanner
 
 + (void)load
 {
@@ -35,7 +35,7 @@ CGFloat handleNotFinite(CGFloat value)
         return parent;
     }
     for (UIView *v in parent.subviews) {
-        UIView *result = [HVHierarchyScanner recursiveSearchForView:_id parent:v];
+        UIView *result = [ IDScanner recursiveSearchForView:_id parent:v];
         if (result) {
             return result;
         }
@@ -48,7 +48,7 @@ CGFloat handleNotFinite(CGFloat value)
     UIApplication *app = [UIApplication sharedApplication];
     if (app) {
         for (UIView *v in app.windows) {
-            UIView *result = [HVHierarchyScanner recursiveSearchForView:_id parent:v];
+            UIView *result = [ IDScanner recursiveSearchForView:_id parent:v];
             if (result) {
                 return result;
             }
@@ -172,7 +172,7 @@ NSString* NSStringFromCATransform3D(CATransform3D transform)
         
         NSMutableArray *subViewsArray = [[NSMutableArray alloc] initWithCapacity:10];
         for (UIView *subview in view.subviews) {
-            NSDictionary *subviewDictionary = [HVHierarchyScanner recursivePropertiesScan:subview];
+            NSDictionary *subviewDictionary = [ IDScanner recursivePropertiesScan:subview];
             if (subviewDictionary) {
                 [subViewsArray addObject:subviewDictionary];
             }
@@ -190,7 +190,7 @@ NSString* NSStringFromCATransform3D(CATransform3D transform)
     if (app) {
         dispatch_block_t gatherProperties = ^() {
             for (UIWindow *window in app.windows) {
-                NSDictionary* windowDictionary = [HVHierarchyScanner recursivePropertiesScan:window];
+                NSDictionary* windowDictionary = [ IDScanner recursivePropertiesScan:window];
                 [windowDictionary setValue:[NSString stringWithFormat:@"/preview?id=%ld", (long)window] forKey:@"preview"];
                 [windowViews addObject:windowDictionary];
             }
