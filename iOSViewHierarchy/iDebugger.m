@@ -9,7 +9,7 @@
 #import "GCDWebServerDataResponse.h"
 
 #import "IDScanner.h"
-
+#import "IDFileScanner.h"
 #import "iDebugger.h"
 
 static iDebugger *kDebugger = nil;
@@ -59,11 +59,22 @@ static iDebugger *kDebugger = nil;
                         requestClass: [GCDWebServerRequest class]
                    asyncProcessBlock: (^(__kindof GCDWebServerRequest * _Nonnull request, GCDWebServerCompletionBlock  _Nonnull completionBlock)
                                        {
-                                           dispatch_async(dispatch_get_main_queue(), (^
-                                                                                      {
-                                                                                          [weakSelf handlePreview: request
-                                                                                                         callback: completionBlock];
-                                                                                      }));
+                                           dispatch_async(dispatch_get_main_queue(),
+                                                          (^
+                                                           {
+                                                               [weakSelf handlePreview: request
+                                                                              callback: completionBlock];
+                                                           }));
+                                       })];
+        [_server addHandlerForMethod: @"GET"
+                                path: @"/file/list"
+                        requestClass: [GCDWebServerRequest class]
+                   asyncProcessBlock: (^(__kindof GCDWebServerRequest * _Nonnull request, GCDWebServerCompletionBlock  _Nonnull completionBlock)
+                                       {                                        
+                                           id result = [IDFileScanner allPath];
+                                           NSLog(@"%@", result);
+                                           id response = [GCDWebServerDataResponse responseWithJSONObject: result];
+                                           completionBlock(response);
                                        })];
     }
     return self;
