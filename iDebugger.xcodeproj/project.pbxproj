@@ -7,7 +7,6 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		688149D115D1929400E38AE0 /* HVDefines.h in Headers */ = {isa = PBXBuildFile; fileRef = 688149CF15D1929400E38AE0 /* HVDefines.h */; };
 		6A026B2320846C43007CBA5F /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 6A026B2220846C43007CBA5F /* AppDelegate.m */; };
 		6A026B2620846C43007CBA5F /* ViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 6A026B2520846C43007CBA5F /* ViewController.m */; };
 		6A026B2920846C43007CBA5F /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 6A026B2720846C43007CBA5F /* Main.storyboard */; };
@@ -22,28 +21,26 @@
 		6A026B4820848AFE007CBA5F /* iDebugger.m in Sources */ = {isa = PBXBuildFile; fileRef = 6A026B4520848AFE007CBA5F /* iDebugger.m */; };
 		6A026B4920848AFE007CBA5F /* iDebugger.m in Sources */ = {isa = PBXBuildFile; fileRef = 6A026B4520848AFE007CBA5F /* iDebugger.m */; };
 		6A0A168C20804F6100167432 /* iDebugKit.h in Headers */ = {isa = PBXBuildFile; fileRef = 6A0A168A20804F6100167432 /* iDebugKit.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		6A0A169320804F8100167432 /* HVPropertyEditorHandler.m in Sources */ = {isa = PBXBuildFile; fileRef = 7CB3BD5F158A44CF0001D338 /* HVPropertyEditorHandler.m */; };
 		6A0A169520804F8100167432 /* HVCoreDataHandler.m in Sources */ = {isa = PBXBuildFile; fileRef = 7CE2ED1315E40CDE00684792 /* HVCoreDataHandler.m */; };
 		6A0A169620804F8100167432 /* HVBaseRequestHandler.m in Sources */ = {isa = PBXBuildFile; fileRef = 7CB3BD63158A44CF0001D338 /* HVBaseRequestHandler.m */; };
-		6A0A169720804F8100167432 /* HVHTTPServer.m in Sources */ = {isa = PBXBuildFile; fileRef = 7CB3BD65158A44CF0001D338 /* HVHTTPServer.m */; };
 		6A0A169820804F8100167432 /* HVHierarchyScanner.m in Sources */ = {isa = PBXBuildFile; fileRef = 7CE955D11540C5CB0042A03A /* HVHierarchyScanner.m */; };
 		6A0A169B20804FA600167432 /* index_ui.html in Resources */ = {isa = PBXBuildFile; fileRef = 7CB3BD75158A45690001D338 /* index_ui.html */; };
 		6A0A169C20804FA600167432 /* index_core.html in Resources */ = {isa = PBXBuildFile; fileRef = 7C11395315E58063004AED3F /* index_core.html */; };
 		6A0A169D20804FA600167432 /* jquery.js in Resources */ = {isa = PBXBuildFile; fileRef = 7CDFD54415E55B97001D5841 /* jquery.js */; };
 		6A0A169E20804FA600167432 /* navbar.js in Resources */ = {isa = PBXBuildFile; fileRef = 7C11395715E580BA004AED3F /* navbar.js */; };
 		6A0A169F20804FA600167432 /* style.css in Resources */ = {isa = PBXBuildFile; fileRef = 7C11391615E57573004AED3F /* style.css */; };
+		6AEC08312085C171005605BE /* IDViewScanner.h in Headers */ = {isa = PBXBuildFile; fileRef = 6AEC082F2085C171005605BE /* IDViewScanner.h */; };
+		6AEC08322085C171005605BE /* IDViewScanner.h in Headers */ = {isa = PBXBuildFile; fileRef = 6AEC082F2085C171005605BE /* IDViewScanner.h */; };
+		6AEC08332085C171005605BE /* IDViewScanner.m in Sources */ = {isa = PBXBuildFile; fileRef = 6AEC08302085C171005605BE /* IDViewScanner.m */; };
+		6AEC08342085C171005605BE /* IDViewScanner.m in Sources */ = {isa = PBXBuildFile; fileRef = 6AEC08302085C171005605BE /* IDViewScanner.m */; };
 		7C11391B15E57627004AED3F /* webapp_jquery.h in Headers */ = {isa = PBXBuildFile; fileRef = 7C11391815E57627004AED3F /* webapp_jquery.h */; };
 		7C11391C15E57627004AED3F /* webapp_style.h in Headers */ = {isa = PBXBuildFile; fileRef = 7C11391915E57627004AED3F /* webapp_style.h */; };
 		7C11395615E58076004AED3F /* webapp_index_core.h in Headers */ = {isa = PBXBuildFile; fileRef = 7C11395515E58076004AED3F /* webapp_index_core.h */; };
 		7C11395A15E580C4004AED3F /* webapp_navbar.h in Headers */ = {isa = PBXBuildFile; fileRef = 7C11395915E580C4004AED3F /* webapp_navbar.h */; };
 		7C12E28215E7E292009D2F26 /* webapp_index_ui.h in Headers */ = {isa = PBXBuildFile; fileRef = 7C12E28115E7E292009D2F26 /* webapp_index_ui.h */; };
 		7C861E38153DF2E000935C95 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 7C861E37153DF2E000935C95 /* Foundation.framework */; };
-		7CB3BD6C158A44CF0001D338 /* HVPropertyEditorHandler.h in Headers */ = {isa = PBXBuildFile; fileRef = 7CB3BD5E158A44CF0001D338 /* HVPropertyEditorHandler.h */; };
-		7CB3BD6D158A44CF0001D338 /* HVPropertyEditorHandler.m in Sources */ = {isa = PBXBuildFile; fileRef = 7CB3BD5F158A44CF0001D338 /* HVPropertyEditorHandler.m */; };
 		7CB3BD70158A44CF0001D338 /* HVBaseRequestHandler.h in Headers */ = {isa = PBXBuildFile; fileRef = 7CB3BD62158A44CF0001D338 /* HVBaseRequestHandler.h */; };
 		7CB3BD71158A44CF0001D338 /* HVBaseRequestHandler.m in Sources */ = {isa = PBXBuildFile; fileRef = 7CB3BD63158A44CF0001D338 /* HVBaseRequestHandler.m */; };
-		7CB3BD72158A44CF0001D338 /* HVHTTPServer.h in Headers */ = {isa = PBXBuildFile; fileRef = 7CB3BD64158A44CF0001D338 /* HVHTTPServer.h */; };
-		7CB3BD73158A44CF0001D338 /* HVHTTPServer.m in Sources */ = {isa = PBXBuildFile; fileRef = 7CB3BD65158A44CF0001D338 /* HVHTTPServer.m */; };
 		7CE2ED1415E40CDE00684792 /* HVCoreDataHandler.h in Headers */ = {isa = PBXBuildFile; fileRef = 7CE2ED1215E40CDE00684792 /* HVCoreDataHandler.h */; };
 		7CE2ED1515E40CDE00684792 /* HVCoreDataHandler.m in Sources */ = {isa = PBXBuildFile; fileRef = 7CE2ED1315E40CDE00684792 /* HVCoreDataHandler.m */; };
 		7CE955DE1540C5CB0042A03A /* HVHierarchyScanner.h in Headers */ = {isa = PBXBuildFile; fileRef = 7CE955D01540C5CB0042A03A /* HVHierarchyScanner.h */; };
@@ -71,7 +68,6 @@
 
 /* Begin PBXFileReference section */
 		146904B3C345F9D2992F766F /* libPods-iDebugger.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-iDebugger.a"; sourceTree = BUILT_PRODUCTS_DIR; };
-		688149CF15D1929400E38AE0 /* HVDefines.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HVDefines.h; sourceTree = "<group>"; };
 		6A026B1F20846C43007CBA5F /* iDebugDemo.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = iDebugDemo.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		6A026B2120846C43007CBA5F /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
 		6A026B2220846C43007CBA5F /* AppDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AppDelegate.m; sourceTree = "<group>"; };
@@ -89,6 +85,8 @@
 		6A0A168820804F6100167432 /* iDebugKit.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = iDebugKit.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		6A0A168A20804F6100167432 /* iDebugKit.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = iDebugKit.h; sourceTree = "<group>"; };
 		6A0A168B20804F6100167432 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		6AEC082F2085C171005605BE /* IDViewScanner.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = IDViewScanner.h; sourceTree = "<group>"; };
+		6AEC08302085C171005605BE /* IDViewScanner.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = IDViewScanner.m; sourceTree = "<group>"; };
 		7C11391615E57573004AED3F /* style.css */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.css; path = style.css; sourceTree = "<group>"; };
 		7C11391815E57627004AED3F /* webapp_jquery.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = webapp_jquery.h; sourceTree = "<group>"; };
 		7C11391915E57627004AED3F /* webapp_style.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = webapp_style.h; sourceTree = "<group>"; };
@@ -100,12 +98,8 @@
 		7C861E34153DF2E000935C95 /* libiDebugger.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libiDebugger.a; sourceTree = BUILT_PRODUCTS_DIR; };
 		7C861E37153DF2E000935C95 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
 		7C861E3B153DF2E000935C95 /* iDebugger-Prefix.pch */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "iDebugger-Prefix.pch"; sourceTree = "<group>"; };
-		7CB3BD5E158A44CF0001D338 /* HVPropertyEditorHandler.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HVPropertyEditorHandler.h; sourceTree = "<group>"; };
-		7CB3BD5F158A44CF0001D338 /* HVPropertyEditorHandler.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HVPropertyEditorHandler.m; sourceTree = "<group>"; };
 		7CB3BD62158A44CF0001D338 /* HVBaseRequestHandler.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HVBaseRequestHandler.h; sourceTree = "<group>"; };
 		7CB3BD63158A44CF0001D338 /* HVBaseRequestHandler.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HVBaseRequestHandler.m; sourceTree = "<group>"; };
-		7CB3BD64158A44CF0001D338 /* HVHTTPServer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HVHTTPServer.h; sourceTree = "<group>"; };
-		7CB3BD65158A44CF0001D338 /* HVHTTPServer.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HVHTTPServer.m; sourceTree = "<group>"; };
 		7CB3BD75158A45690001D338 /* index_ui.html */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.html; path = index_ui.html; sourceTree = "<group>"; };
 		7CD97A5415B299E500CBAAA1 /* QuartzCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = QuartzCore.framework; path = System/Library/Frameworks/QuartzCore.framework; sourceTree = SDKROOT; };
 		7CDFD54415E55B97001D5841 /* jquery.js */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.javascript; path = jquery.js; sourceTree = "<group>"; };
@@ -218,9 +212,10 @@
 				7CB3BD56158A44CF0001D338 /* http */,
 				7CE955D01540C5CB0042A03A /* HVHierarchyScanner.h */,
 				7CE955D11540C5CB0042A03A /* HVHierarchyScanner.m */,
-				688149CF15D1929400E38AE0 /* HVDefines.h */,
 				6A026B4420848AFE007CBA5F /* iDebugger.h */,
 				6A026B4520848AFE007CBA5F /* iDebugger.m */,
+				6AEC082F2085C171005605BE /* IDViewScanner.h */,
+				6AEC08302085C171005605BE /* IDViewScanner.m */,
 			);
 			path = iOSViewHierarchy;
 			sourceTree = "<group>";
@@ -240,8 +235,6 @@
 				7CB3BD57158A44CF0001D338 /* api */,
 				7CB3BD62158A44CF0001D338 /* HVBaseRequestHandler.h */,
 				7CB3BD63158A44CF0001D338 /* HVBaseRequestHandler.m */,
-				7CB3BD64158A44CF0001D338 /* HVHTTPServer.h */,
-				7CB3BD65158A44CF0001D338 /* HVHTTPServer.m */,
 			);
 			path = http;
 			sourceTree = "<group>";
@@ -249,8 +242,6 @@
 		7CB3BD57158A44CF0001D338 /* api */ = {
 			isa = PBXGroup;
 			children = (
-				7CB3BD5E158A44CF0001D338 /* HVPropertyEditorHandler.h */,
-				7CB3BD5F158A44CF0001D338 /* HVPropertyEditorHandler.m */,
 				7CE2ED1215E40CDE00684792 /* HVCoreDataHandler.h */,
 				7CE2ED1315E40CDE00684792 /* HVCoreDataHandler.m */,
 			);
@@ -292,6 +283,7 @@
 			isa = PBXHeadersBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				6AEC08322085C171005605BE /* IDViewScanner.h in Headers */,
 				6A0A168C20804F6100167432 /* iDebugKit.h in Headers */,
 				6A026B4720848AFE007CBA5F /* iDebugger.h in Headers */,
 			);
@@ -302,15 +294,13 @@
 			buildActionMask = 2147483647;
 			files = (
 				7CE955DE1540C5CB0042A03A /* HVHierarchyScanner.h in Headers */,
-				7CB3BD6C158A44CF0001D338 /* HVPropertyEditorHandler.h in Headers */,
 				7CB3BD70158A44CF0001D338 /* HVBaseRequestHandler.h in Headers */,
-				7CB3BD72158A44CF0001D338 /* HVHTTPServer.h in Headers */,
-				688149D115D1929400E38AE0 /* HVDefines.h in Headers */,
 				7CE2ED1415E40CDE00684792 /* HVCoreDataHandler.h in Headers */,
 				7C11391B15E57627004AED3F /* webapp_jquery.h in Headers */,
 				7C11391C15E57627004AED3F /* webapp_style.h in Headers */,
 				6A026B4620848AFE007CBA5F /* iDebugger.h in Headers */,
 				7C11395615E58076004AED3F /* webapp_index_core.h in Headers */,
+				6AEC08312085C171005605BE /* IDViewScanner.h in Headers */,
 				7C11395A15E580C4004AED3F /* webapp_navbar.h in Headers */,
 				7C12E28215E7E292009D2F26 /* webapp_index_ui.h in Headers */,
 			);
@@ -542,11 +532,10 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				6A0A169320804F8100167432 /* HVPropertyEditorHandler.m in Sources */,
 				6A0A169520804F8100167432 /* HVCoreDataHandler.m in Sources */,
 				6A0A169620804F8100167432 /* HVBaseRequestHandler.m in Sources */,
+				6AEC08342085C171005605BE /* IDViewScanner.m in Sources */,
 				6A026B4920848AFE007CBA5F /* iDebugger.m in Sources */,
-				6A0A169720804F8100167432 /* HVHTTPServer.m in Sources */,
 				6A0A169820804F8100167432 /* HVHierarchyScanner.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -556,10 +545,9 @@
 			buildActionMask = 2147483647;
 			files = (
 				7CE955DF1540C5CB0042A03A /* HVHierarchyScanner.m in Sources */,
-				7CB3BD6D158A44CF0001D338 /* HVPropertyEditorHandler.m in Sources */,
 				6A026B4820848AFE007CBA5F /* iDebugger.m in Sources */,
+				6AEC08332085C171005605BE /* IDViewScanner.m in Sources */,
 				7CB3BD71158A44CF0001D338 /* HVBaseRequestHandler.m in Sources */,
-				7CB3BD73158A44CF0001D338 /* HVHTTPServer.m in Sources */,
 				7CE2ED1515E40CDE00684792 /* HVCoreDataHandler.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

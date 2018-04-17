@@ -8,10 +8,6 @@
 #import "GCDWebServerFileResponse.h"
 #import "GCDWebServerDataResponse.h"
 
-#import "webapp_index_ui.h"
-#import "webapp_style.h"
-#import "webapp_jquery.h"
-#import "webapp_navbar.h"
 #import "HVHierarchyScanner.h"
 
 #import "iDebugger.h"
@@ -40,45 +36,6 @@ static iDebugger *kDebugger = nil;
     if ((self = [super init]))
     {
         _server = [[GCDWebServer alloc] init];
-        [_server addDefaultHandlerForMethod: @"GET"
-                               requestClass: [GCDWebServerRequest class]
-                               processBlock: (^GCDWebServerResponse * _Nullable(__kindof GCDWebServerRequest * _Nonnull request)
-                                              {
-                                                  NSData *data = [[NSData alloc] initWithBase64EncodedString: WEBAPP_INDEX_UI
-                                                                                                     options: 0];
-                                                  return [GCDWebServerDataResponse responseWithData: data
-                                                                                        contentType: @"text/html"];
-                                              })];
-        [_server addHandlerForMethod: @"GET"
-                                path: @"/style.css"
-                        requestClass: [GCDWebServerRequest class]
-                        processBlock: (^GCDWebServerResponse * _Nullable(__kindof GCDWebServerRequest * _Nonnull request)
-                                       {
-                                           NSData *data = [[NSData alloc] initWithBase64EncodedString: WEBAPP_STYLE
-                                                                                              options: 0];
-                                           return [GCDWebServerDataResponse responseWithData: data
-                                                                                 contentType: @"text/css"];
-                                       })];
-        [_server addHandlerForMethod: @"GET"
-                                path: @"/jquery.js"
-                        requestClass: [GCDWebServerRequest class]
-                        processBlock: (^GCDWebServerResponse * _Nullable(__kindof GCDWebServerRequest * _Nonnull request)
-                                       {
-                                           NSData *data = [[NSData alloc] initWithBase64EncodedString: WEBAPP_JQUERY
-                                                                                              options: 0];
-                                           return [GCDWebServerDataResponse responseWithData: data
-                                                                                 contentType: @"text/javascript"];
-                                       })];
-        [_server addHandlerForMethod: @"GET"
-                                path: @"/navbar.js"
-                        requestClass: [GCDWebServerRequest class]
-                        processBlock: (^GCDWebServerResponse * _Nullable(__kindof GCDWebServerRequest * _Nonnull request)
-                                       {
-                                           NSData *data = [[NSData alloc] initWithBase64EncodedString: WEBAPP_NAVBAR
-                                                                                              options: 0];
-                                           return [GCDWebServerDataResponse responseWithData: data
-                                                                                 contentType: @"text/javascript"];
-                                       })];
         [_server addHandlerForMethod: @"GET"
                                 path: @"/snapshot"
                         requestClass: [GCDWebServerRequest class]

@@ -5,7 +5,13 @@
 //
 
 #import <Foundation/Foundation.h>
-#import "HVHTTPServer.h"
+
+@protocol HVRequestHandler <NSObject>
+@required
+
+- (BOOL)handleRequest:(NSString *)url withHeaders:(NSDictionary *)headers query:(NSDictionary *)query address:(NSString *)address onSocket:(int)socket;
+
+@end
 
 @interface HVBaseRequestHandler : NSObject <HVRequestHandler>
 

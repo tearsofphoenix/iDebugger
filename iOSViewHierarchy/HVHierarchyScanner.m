@@ -8,14 +8,17 @@
 #import <math.h>
 #import <QuartzCore/QuartzCore.h>
 #import "HVHierarchyScanner.h"
+#import "IDViewScanner.h"
 
 static NSArray *kPropertyBlackList = nil;
+static NSArray *kClassIgnoreList = nil;
 
 @implementation HVHierarchyScanner
 
 + (void)load
 {
     kPropertyBlackList = @[@"selectedTextRange"];
+    kClassIgnoreList = @[@"UIWindow"];
 }
 
 CGFloat handleNotFinite(CGFloat value)
@@ -54,10 +57,15 @@ CGFloat handleNotFinite(CGFloat value)
     return nil;
 }
 
-+ (NSString *)UIColorToNSString:(UIColor *)color
+NSString *UIColorToNSString(UIColor *color)
+{
+    return CGColorToNSString([color CGColor]);
+}
+
+NSString *CGColorToNSString(CGColorRef color)
 {
     if (color) {
-        CGColorSpaceRef colorSpace = CGColorGetColorSpace(color.CGColor);
+        CGColorSpaceRef colorSpace = CGColorGetColorSpace(color);
         CGColorSpaceModel model = CGColorSpaceGetModel(colorSpace);
         
         NSString *prefix = @"A???";
@@ -87,8 +95,8 @@ CGFloat handleNotFinite(CGFloat value)
                 prefix = @"A???";
                 break;
         }
-        size_t n = CGColorGetNumberOfComponents(color.CGColor);
-        const CGFloat *componentsArray = CGColorGetComponents(color.CGColor);
+        size_t n = CGColorGetNumberOfComponents(color);
+        const CGFloat *componentsArray = CGColorGetComponents(color);
         
         NSMutableArray *array = [[NSMutableArray alloc] initWithCapacity:n];
         //[array addObject:[NSNumber numberWithInt:(int)(CGColorGetAlpha([color CGColor])*255.0f)]];
@@ -102,7 +110,7 @@ CGFloat handleNotFinite(CGFloat value)
     return @"nil";
 }
 
-static NSString* NSStringFromCGAffineTransform2(CGAffineTransform transform)
+NSString* NSStringFromCGAffineTransform2(CGAffineTransform transform)
 {
     return [NSString stringWithFormat:@"%f,%f,%f,%f,%f,%f",
             transform.a,
@@ -113,7 +121,7 @@ static NSString* NSStringFromCGAffineTransform2(CGAffineTransform transform)
             transform.ty];
 }
 
-static NSString* NSStringFromCATransform3D(CATransform3D transform)
+NSString* NSStringFromCATransform3D(CATransform3D transform)
 {
     return [NSString stringWithFormat:@"%.2f,%.2f,%.2f,%.2f,%.2f,%.2f,%.2f,%.2f,%.2f,%.2f,%.2f,%.2f,%.2f,%.2f,%.2f,%.2f",
             (transform.m11),
@@ -135,221 +143,6 @@ static NSString* NSStringFromCATransform3D(CATransform3D transform)
             ];
 }
 
-+ (NSMutableArray *)classProperties:(Class)class object:(NSObject *)obj
-{
-    unsigned int outCount, i;
-    objc_property_t *properties = class_copyPropertyList(class, &outCount);
-    NSMutableArray *propertiesArray = [[NSMutableArray alloc] initWithCapacity:10];
-    
-    // handle UITextInputTraits properties which aren't KVO compilant
-    BOOL conformsToUITextInputTraits = [class conformsToProtocol:@protocol(UITextInputTraits)];
-    
-    for (i = 0; i < outCount; i++) {
-        objc_property_t property = properties[i];
-        
-        NSMutableDictionary *propertyDescription = [[NSMutableDictionary alloc] initWithCapacity:2];
-        
-        NSString *propertyName = [[NSString alloc] initWithCString:property_getName(property) encoding:[NSString defaultCStringEncoding]];
-        if ([kPropertyBlackList containsObject: propertyName]) {
-            continue;
-        }
-        if (conformsToUITextInputTraits) {
-            if (protocol_getMethodDescription(@protocol(UITextInputTraits), NSSelectorFromString(propertyName), NO, YES).name != NULL) {
-                continue;
-            }
-            if ([@"secureTextEntry" isEqualToString:propertyName]) {
-                continue;
-            }
-        }
-        
-        NSString *propertyType = [[NSString alloc] initWithCString:property_getAttributes(property) encoding:[NSString defaultCStringEncoding]];
-        [propertyDescription setValue:propertyName forKey:@"name"];
-        
-        NSArray *attributes = [propertyType componentsSeparatedByString:@","];
-        NSString *typeAttribute = attributes[0];
-        NSString *type = [typeAttribute substringFromIndex:1];
-        const char *rawPropertyType = type.UTF8String;
-        
-        BOOL readValue = NO;
-        BOOL checkOnlyIfNil = NO;
-        
-        if (strcmp(rawPropertyType, @encode(float)) == 0) {
-            [propertyDescription setValue:@"float" forKey:@"type"];
-            readValue = YES;
-        } else if (strcmp(rawPropertyType, @encode(double)) == 0) {
-            [propertyDescription setValue:@"double" forKey:@"type"];
-            readValue = YES;
-        } else if (strcmp(rawPropertyType, @encode(int)) == 0) {
-            [propertyDescription setValue:@"int" forKey:@"type"];
-            readValue = YES;
-        } else if (strcmp(rawPropertyType, @encode(long)) == 0) {
-            [propertyDescription setValue:@"long" forKey:@"type"];
-            readValue = YES;
-        } else if (strcmp(rawPropertyType, @encode(BOOL)) == 0) {
-            [propertyDescription setValue:@"BOOL" forKey:@"type"];
-            readValue = NO;
-            NSNumber *propertyValue;
-            @try {
-                propertyValue = [obj valueForKey:propertyName];
-            }
-            @catch (NSException *exception) {
-                propertyValue = nil;
-            }
-            [propertyDescription setValue:(propertyValue.boolValue ? @"YES" : @"NO") forKey:@"value"];
-        } else if (strcmp(rawPropertyType, @encode(char)) == 0) {
-            [propertyDescription setValue:@"char" forKey:@"type"];
-        } else if ( type && ( [type hasPrefix:@"{CGRect="] ) ) {
-            readValue = NO;
-            NSValue *propertyValue;
-            @try {
-                propertyValue = [obj valueForKey:propertyName];
-            }
-            @catch (NSException *exception) {
-                propertyValue = nil;
-            }
-            [propertyDescription setValue:[NSString stringWithFormat:@"%@", NSStringFromCGRect(propertyValue.CGRectValue)] forKey:@"value"];
-            [propertyDescription setValue:@"CGRect" forKey:@"type"];
-        } else if ( type && ( [type hasPrefix:@"{CGPoint="] ) ) {
-            readValue = NO;
-            NSValue *propertyValue;
-            @try {
-                propertyValue = [obj valueForKey:propertyName];
-            }
-            @catch (NSException *exception) {
-                propertyValue = nil;
-            }
-            [propertyDescription setValue:[NSString stringWithFormat:@"%@", NSStringFromCGPoint(propertyValue.CGPointValue)] forKey:@"value"];
-            [propertyDescription setValue:@"CGPoint" forKey:@"type"];
-        } else if ( type && ( [type hasPrefix:@"{CGSize="] ) ) {
-            readValue = NO;
-            NSValue *propertyValue;
-            @try {
-                propertyValue = [obj valueForKey:propertyName];
-            }
-            @catch (NSException *exception) {
-                propertyValue = nil;
-            }
-            [propertyDescription setValue:[NSString stringWithFormat:@"%@", NSStringFromCGSize(propertyValue.CGSizeValue)] forKey:@"value"];
-            [propertyDescription setValue:@"CGSize" forKey:@"type"];
-        } else if ( type && ( [type hasPrefix:@"{CGAffineTransform="] ) ) {
-            readValue = NO;
-            CGAffineTransform *propertyValue;
-            @try {
-                propertyValue = (__bridge CGAffineTransform*)[obj valueForKey:propertyName];
-            }
-            @catch (NSException *exception) {
-                propertyValue = nil;
-            }
-            [propertyDescription setValue:[NSString stringWithFormat:@"%@", NSStringFromCGAffineTransform2(*propertyValue)] forKey:@"value"];
-            [propertyDescription setValue:@"CGAffineTransform" forKey:@"type"];
-        } else if ( type && ( [type hasPrefix:@"{CATransform3D="] ) ) {
-            readValue = NO;
-            CATransform3D *propertyValue;
-            @try {
-                propertyValue = (__bridge CATransform3D*)[obj valueForKey:propertyName];
-            }
-            @catch (NSException *exception) {
-                propertyValue = nil;
-            }
-            [propertyDescription setValue:[NSString stringWithFormat:@"%@", NSStringFromCATransform3D(*propertyValue)] forKey:@"value"];
-            [propertyDescription setValue:@"CATransform3D" forKey:@"type"];
-        } else if (type && [type hasPrefix:@"@"] && type.length > 3) {
-            readValue = YES;
-            checkOnlyIfNil = YES;
-            NSString *typeClassName = [type substringWithRange:NSMakeRange(2, type.length - 3)];
-            [propertyDescription setValue:typeClassName forKey:@"type"];
-            if ([typeClassName isEqualToString:[[UIColor class] description]]) {
-                readValue = NO;
-                id propertyValue;
-                @try {
-                    propertyValue = [obj valueForKey:propertyName];
-                }
-                @catch (NSException *exception) {
-                    propertyValue = nil;
-                }
-                
-                [propertyDescription setValue:(propertyValue ? [HVHierarchyScanner UIColorToNSString:propertyValue] : @"nil") forKey:@"value"];
-            }
-            if ([typeClassName isEqualToString:[[NSString class] description]]) {
-                checkOnlyIfNil = NO;
-            }
-            if ([typeClassName isEqualToString:[[UIFont class] description]]) {
-                checkOnlyIfNil = NO;
-            }
-        } else {
-            [propertyDescription setValue:propertyType forKey:@"type"];
-        }
-        if (readValue) {
-            id propertyValue;
-            @try {
-                propertyValue = [obj valueForKey:propertyName];
-            }
-            @catch (NSException *exception) {
-                propertyValue = nil;
-            }
-            if (checkOnlyIfNil) {
-                [propertyDescription setValue:(propertyValue != nil ? @"OBJECT" : @"nil") forKey:@"value"];
-            } else {
-                [propertyDescription setValue:(propertyValue != nil ? [NSString stringWithFormat:@"%@", propertyValue] : @"nil") forKey:@"value"];
-            }
-        }
-        [propertiesArray addObject:propertyDescription];
-    }
-    free(properties);
-    return propertiesArray;
-}
-
-+ (NSArray *)UIGeometryProperties:(UIView *)view
-{
-    NSMutableArray *properties = [[NSMutableArray alloc] initWithCapacity:10];
-    
-    NSDictionary *frame = @{@"name": @"frame", @"type": @"CGRect", @"value": NSStringFromCGRect(view.frame)};
-    [properties addObject:frame];
-    
-    NSDictionary *bounds = @{@"name": @"bounds", @"type": @"CGRect", @"value": NSStringFromCGRect(view.bounds)};
-    [properties addObject:bounds];
-    
-    NSDictionary *center = @{@"name": @"center", @"type": @"CGPoint", @"value": NSStringFromCGPoint(view.center)};
-    [properties addObject:center];
-    
-    NSDictionary *transform = @{@"name": @"transform", @"type": @"CGAffineTransform", @"value": NSStringFromCGAffineTransform2(view.transform)};
-    [properties addObject:transform];
-    
-    NSDictionary *layerTransform = @{@"name": @"layer.transform", @"type": @"CATransform3D", @"value": NSStringFromCATransform3D(view.layer.transform)};
-    [properties addObject:layerTransform];
-    
-    return properties;
-}
-
-+ (NSArray *)UIViewRenderingProperties:(UIView *)view
-{
-    NSMutableArray *properties = [[NSMutableArray alloc] initWithCapacity:10];
-    
-    NSDictionary *clipToBounds = @{@"name": @"clipToBounds", @"type": @"BOOL", @"value": view.clipsToBounds ? @"YES" : @"NO"};
-    [properties addObject:clipToBounds];
-    
-    NSDictionary *backgroundColor = @{@"name": @"backgroundColor", @"type": @"UIColor", @"value": [HVHierarchyScanner UIColorToNSString:view.backgroundColor]};
-    [properties addObject:backgroundColor];
-    
-    NSDictionary *alpha = @{@"name": @"alpha", @"type": @"CGFloat", @"value": [NSString stringWithFormat:@"%f", view.alpha]};
-    [properties addObject:alpha];
-    
-    NSDictionary *opaque = @{@"name": @"opaque", @"type": @"BOOL", @"value": view.opaque ? @"YES" : @"NO"};
-    [properties addObject:opaque];
-    
-    NSDictionary *hidden = @{@"name": @"hidden", @"type": @"BOOL", @"value": view.hidden ? @"YES" : @"NO"};
-    [properties addObject:hidden];
-    
-    NSDictionary *contentMode = @{@"name": @"contentMode", @"type": @"UIViewContentMode", @"value": [NSString stringWithFormat:@"%ld", (long)view.contentMode]};
-    [properties addObject:contentMode];
-    
-    NSDictionary *clearContextBeforeDrawing = @{@"name": @"clearsContextBeforeDrawing", @"type": @"BOOL", @"value": view.clearsContextBeforeDrawing ? @"YES" : @"NO"};
-    [properties addObject:clearContextBeforeDrawing];
-    
-    
-    return properties;
-}
-
 + (NSDictionary *)recursivePropertiesScan:(UIView *)view
 {
     if (view) {
@@ -361,45 +154,19 @@ static NSString* NSStringFromCATransform3D(CATransform3D transform)
         [viewDescription setValue:@((long)view) forKey:@"id"];
         
         [viewDescription setValue:NSStringFromCATransform3D(view.layer.transform) forKey:@"layer_transform"];
-        [viewDescription setValue:[NSNumber numberWithFloat:handleNotFinite(view.layer.bounds.origin.x)] forKey:@"layer_bounds_x"];
-        [viewDescription setValue:[NSNumber numberWithFloat:handleNotFinite(view.layer.bounds.origin.y)] forKey:@"layer_bounds_y"];
-        [viewDescription setValue:[NSNumber numberWithFloat:handleNotFinite(view.layer.bounds.size.width)] forKey:@"layer_bounds_w"];
-        [viewDescription setValue:[NSNumber numberWithFloat:handleNotFinite(view.layer.bounds.size.height)] forKey:@"layer_bounds_h"];
-        [viewDescription setValue:[NSNumber numberWithFloat:handleNotFinite(view.layer.position.x)] forKey:@"layer_position_x"];
-        [viewDescription setValue:[NSNumber numberWithFloat:handleNotFinite(view.layer.position.y)] forKey:@"layer_position_y"];
-        [viewDescription setValue:[NSNumber numberWithFloat:handleNotFinite(view.layer.anchorPoint.x)] forKey:@"layer_anchor_x"];
-        [viewDescription setValue:[NSNumber numberWithFloat:handleNotFinite(view.layer.anchorPoint.y)] forKey:@"layer_anchor_y"];
+        [viewDescription setValue: @(handleNotFinite(view.layer.bounds.origin.x)) forKey:@"layer_bounds_x"];
+        [viewDescription setValue: @(handleNotFinite(view.layer.bounds.origin.y)) forKey:@"layer_bounds_y"];
+        [viewDescription setValue: @(handleNotFinite(view.layer.bounds.size.width)) forKey:@"layer_bounds_w"];
+        [viewDescription setValue: @(handleNotFinite(view.layer.bounds.size.height)) forKey:@"layer_bounds_h"];
+        [viewDescription setValue: @(handleNotFinite(view.layer.position.x)) forKey:@"layer_position_x"];
+        [viewDescription setValue: @(handleNotFinite(view.layer.position.y)) forKey:@"layer_position_y"];
+        [viewDescription setValue: @(handleNotFinite(view.layer.anchorPoint.x)) forKey:@"layer_anchor_x"];
+        [viewDescription setValue: @(handleNotFinite(view.layer.anchorPoint.y)) forKey:@"layer_anchor_y"];
         
         // put properties from super classes
         NSMutableArray *properties = [[NSMutableArray alloc] initWithCapacity:10];
         
-        // put UIGeometry properties
-        NSMutableDictionary *geometryProperties = [[NSMutableDictionary alloc] initWithCapacity:2];
-        [geometryProperties setValue:@"UIGeometry" forKey:@"name"];
-        [geometryProperties setValue:[HVHierarchyScanner UIGeometryProperties:view] forKey:@"props"];
-        [properties addObject:geometryProperties];
-        
-        // put UIRendering
-        NSMutableDictionary *renderingProperties = [[NSMutableDictionary alloc] initWithCapacity:2];
-        [renderingProperties setValue:@"UIViewRendering" forKey:@"name"];
-        [renderingProperties setValue:[HVHierarchyScanner UIViewRenderingProperties:view] forKey:@"props"];
-        [properties addObject:renderingProperties];
-        
-        // put rest
-        Class class = [view class];
-        while (class != [NSObject class]) {
-            NSMutableDictionary *classProperties = [[NSMutableDictionary alloc] initWithCapacity:2];
-            [classProperties setValue:[HVHierarchyScanner classProperties:class object:view] forKey:@"props"];
-            [classProperties setValue:[class description] forKey:@"name"];
-            [properties addObject:classProperties];
-            class = [class superclass];
-        }
-        
-        // put CALayer
-        NSMutableDictionary *layerProperties = [[NSMutableDictionary alloc] initWithCapacity:2];
-        [layerProperties setValue:@"CALayer" forKey:@"name"];
-        [layerProperties setValue:[HVHierarchyScanner classProperties:[CALayer class] object:view.layer] forKey:@"props"];
-        [properties addObject:layerProperties];
+        [properties addObjectsFromArray: [IDViewScanner scanPropertyOfObject: view]];
         
         [viewDescription setValue:properties forKey:@"props"];
         

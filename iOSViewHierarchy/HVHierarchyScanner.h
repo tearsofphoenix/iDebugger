@@ -7,7 +7,15 @@
 #import <UIKit/UIKit.h>
 #import <Foundation/Foundation.h>
 
-CGFloat handleNotFinite(CGFloat value);
+extern CGFloat handleNotFinite(CGFloat value);
+
+extern NSString *UIColorToNSString(UIColor *color);
+
+extern NSString *CGColorToNSString(CGColorRef color);
+
+extern NSString* NSStringFromCATransform3D(CATransform3D transform);
+
+extern NSString* NSStringFromCGAffineTransform2(CGAffineTransform transform);
 
 @interface HVHierarchyScanner : NSObject
 
