@@ -7,10 +7,12 @@
 #import "GCDWebServer.h"
 #import "GCDWebServerFileResponse.h"
 #import "GCDWebServerDataResponse.h"
+#import "GCDWebServerDataRequest.h"
 
 #import "IDScanner.h"
 #import "IDFileScanner.h"
 #import "iDebugger.h"
+#import "SystemServices.h"
 
 static iDebugger *kDebugger = nil;
 
@@ -37,7 +39,7 @@ static iDebugger *kDebugger = nil;
     {
         _server = [[GCDWebServer alloc] init];
         [_server addHandlerForMethod: @"GET"
-                                path: @"/snapshot"
+                                path: @"/view/snapshot"
                         requestClass: [GCDWebServerRequest class]
                    asyncProcessBlock: (^(__kindof GCDWebServerRequest * _Nonnull request, GCDWebServerCompletionBlock  _Nonnull completionBlock)
                                        {
@@ -52,6 +54,30 @@ static iDebugger *kDebugger = nil;
                                            
                                            GCDWebServerResponse *response = [GCDWebServerDataResponse responseWithJSONObject: responseDic];
                                            completionBlock(response);
+                                       })];
+        [_server addHandlerForMethod: @"POST"
+                                path: @"/view/update"
+                        requestClass: [GCDWebServerDataRequest class]
+                   asyncProcessBlock: (^(__kindof GCDWebServerRequest * _Nonnull request, GCDWebServerCompletionBlock  _Nonnull completionBlock)
+                                       {
+                                           GCDWebServerDataRequest *req = request;
+                                           NSDictionary *body = [req jsonObject];
+                                           NSLog(@"65 %@", body);
+                                           NSInteger viewID = [body[@"target"] integerValue];
+                                           dispatch_async(dispatch_get_main_queue(),
+                                                          (^
+                                                           {
+                                                               UIView *view = [IDScanner findViewById: viewID];
+                                                               NSLog(@"%@", view);
+                                                               NSDictionary *property = body[@"property"];
+                                                               [view setValue: body[@"value"]
+                                                                       forKey: property[@"name"]];
+                                                               
+                                                               NSDictionary *responseDic = (@{ @"code": @1000 });                                                               
+                                                               GCDWebServerResponse *response = [GCDWebServerDataResponse responseWithJSONObject: responseDic];
+                                                               completionBlock(response);
+                                                           }));
+                                           
                                        })];
         __weak __typeof__(self) weakSelf = self;
         [_server addHandlerForMethod: @"GET"
@@ -70,8 +96,19 @@ static iDebugger *kDebugger = nil;
                                 path: @"/file/list"
                         requestClass: [GCDWebServerRequest class]
                    asyncProcessBlock: (^(__kindof GCDWebServerRequest * _Nonnull request, GCDWebServerCompletionBlock  _Nonnull completionBlock)
-                                       {                                        
+                                       {
                                            id result = [IDFileScanner allPath];
+                                           NSLog(@"%@", result);
+                                           id response = [GCDWebServerDataResponse responseWithJSONObject: result];
+                                           completionBlock(response);
+                                       })];
+        
+        [_server addHandlerForMethod: @"GET"
+                                path: @"/system/info"
+                        requestClass: [GCDWebServerRequest class]
+                   asyncProcessBlock: (^(__kindof GCDWebServerRequest * _Nonnull request, GCDWebServerCompletionBlock  _Nonnull completionBlock)
+                                       {
+                                           id result = [[SystemServices sharedServices] allSystemInformation];
                                            NSLog(@"%@", result);
                                            id response = [GCDWebServerDataResponse responseWithJSONObject: result];
                                            completionBlock(response);

@@ -343,7 +343,6 @@
 				7C861E30153DF2E000935C95 /* Sources */,
 				7C861E31153DF2E000935C95 /* Frameworks */,
 				7C861E32153DF2E000935C95 /* Headers */,
-				7CDFD55115E55FB7001D5841 /* ShellScript */,
 				9A150849514C5313F19FC1CE /* [CP] Copy Pods Resources */,
 			);
 			buildRules = (
@@ -470,20 +469,6 @@
 			shellPath = /bin/sh;
 			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
 			showEnvVarsInLog = 0;
-		};
-		7CDFD55115E55FB7001D5841 /* ShellScript */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputPaths = (
-				"",
-			);
-			outputPaths = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /usr/bin/python;
-			shellScript = "#!/usr/bin/python\n\nimport os\nimport sys\nimport base64\nimport glob\n\nwebappPath = os.getcwd() + '/iOSViewHierarchy/webapp'\n\njavascriptFiles = glob.glob(webappPath + '/*.js')\nhtmlFiles = glob.glob(webappPath + '/*.html')\ncssFiles = glob.glob(webappPath + '/*.css')\n\nallFiles = []\nallFiles.extend(javascriptFiles)\nallFiles.extend(htmlFiles)\nallFiles.extend(cssFiles)\n\nprint allFiles\n\nfor file in allFiles:\n    print 'Converting file: ' + file\n    fileHandle = open(file, \"rb\")\n    data = fileHandle.read()\n    data = base64.b64encode(data)\n    fileHandle.close()\n    \n    defineName = 'webapp_' + os.path.splitext(os.path.basename(file))[0]\n    headerFileName = defineName + '.h'\n    headerFile = webappPath + '/' + headerFileName\n    print 'Saving to ' + headerFile;\n\n    fileHandle = open(headerFile, 'w')\n    fileHandle.write(\"//\\n\")\n    fileHandle.write(\"//  \" + headerFileName + \"\\n\")\n    fileHandle.write(\"//  iOSHierarchyViewer\\n\")\n    fileHandle.write(\"//\\n\")\n    fileHandle.write(\"//\\n\")\n    fileHandle.write(\"// THIS FILE IS GENERATED AUTOMATICALLY BY XCODE's script\\n\")\n    fileHandle.write(\"//\\n\")\n    fileHandle.write(\"//\\n\")\n    fileHandle.write(\"\\n\")\n    fileHandle.write(\"#ifndef iOSHierarchyViewer_\" + defineName + \" \\n\")\n    fileHandle.write(\"#define iOSHierarchyViewer_\" + defineName + \" \\n\")\n    fileHandle.write(\"\\n\")\n    fileHandle.write(\"#define \" + defineName.upper() + \" @\\\"\" + data +  \"\\\"\")\n    fileHandle.write(\"\\n\")\n    fileHandle.write(\"\\n\")\n    fileHandle.write(\"#endif\\n\")\n    fileHandle.close()\n    \n\n";
 		};
 		9A150849514C5313F19FC1CE /* [CP] Copy Pods Resources */ = {
 			isa = PBXShellScriptBuildPhase;
@@ -656,7 +641,7 @@
 				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
 				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
 				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
-				CODE_SIGN_IDENTITY = "iPhone Developer";
+				CODE_SIGN_IDENTITY = "";
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
 				DEBUG_INFORMATION_FORMAT = dwarf;
@@ -697,7 +682,7 @@
 				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
 				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
 				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
-				CODE_SIGN_IDENTITY = "iPhone Developer";
+				CODE_SIGN_IDENTITY = "";
 				CODE_SIGN_STYLE = Automatic;
 				COPY_PHASE_STRIP = NO;
 				CURRENT_PROJECT_VERSION = 1;

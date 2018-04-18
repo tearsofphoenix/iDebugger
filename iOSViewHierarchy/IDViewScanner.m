@@ -29,7 +29,7 @@ static NSMutableDictionary *kMap = nil;
     
     [self addPropertyArray: (@[
                                @{@"name": @"clipToBounds", @"type": @"TB"},
-                               @{@"name": @"alpha", @"type": @"Td"},
+                               @{@"name": @"alpha", @"type": @"Td", @"ext": @{ @"min": @0, @"max": @1}},
                                @{@"name": @"hidden", @"type": @"TB"},
                                @{@"name": @"backgroundColor", @"type": @"T^{CGColor=}"},
                                @{@"name": @"opaque", @"type": @"TB"},
@@ -44,7 +44,7 @@ static NSMutableDictionary *kMap = nil;
                                @{@"name": @"cornerRadius", @"type": @"Td"},
                                @{@"name": @"borderWidth", @"type": @"Td"},
                                @{@"name": @"borderColor", @"type": @"T^{CGColor=}"},
-                               @{@"name": @"opacity", @"type": @"Td"},
+                               @{@"name": @"opacity", @"type": @"Td", @"ext": @{ @"min": @0, @"max": @1}},
                                @{@"name": @"shadowColor", @"type": @"T^{CGColor=}"},
                                @{@"name": @"shadowOpacity", @"type": @"Td"},
                                @{@"name": @"shadowRadius", @"type": @"Td"},
@@ -88,9 +88,13 @@ static NSMutableDictionary *kMap = nil;
         NSMutableDictionary *propertyDescription = [[NSMutableDictionary alloc] initWithCapacity:2];
         NSString *propertyName = looper[@"name"];
         NSString *propertyType = looper[@"type"];
-        [propertyDescription setValue:propertyName forKey:@"name"];
         
-        NSArray *attributes = [propertyType componentsSeparatedByString:@","];
+        propertyDescription[@"name"] = propertyName;
+        if (looper[@"ext"]) {
+            propertyDescription[@"ext"] = looper[@"ext"];
+        }
+        
+        NSArray *attributes = [propertyType componentsSeparatedByString: @","];
         NSString *typeAttribute = attributes[0];
         NSString *type = [typeAttribute substringFromIndex: 1];
         const char *rawPropertyType = [type UTF8String];
@@ -99,19 +103,19 @@ static NSMutableDictionary *kMap = nil;
         BOOL checkOnlyIfNil = NO;
         
         if (strcmp(rawPropertyType, @encode(float)) == 0) {
-            [propertyDescription setValue:@"float" forKey:@"type"];
+            propertyDescription[@"type"] = @"float";
             readValue = YES;
         } else if (strcmp(rawPropertyType, @encode(double)) == 0) {
-            [propertyDescription setValue:@"double" forKey:@"type"];
+            propertyDescription[@"type"] = @"double";
             readValue = YES;
         } else if (strcmp(rawPropertyType, @encode(int)) == 0) {
-            [propertyDescription setValue:@"int" forKey:@"type"];
+            propertyDescription[@"type"] = @"int";
             readValue = YES;
         } else if (strcmp(rawPropertyType, @encode(long)) == 0) {
-            [propertyDescription setValue:@"long" forKey:@"type"];
+            propertyDescription[@"type"] = @"long";
             readValue = YES;
         } else if (strcmp(rawPropertyType, @encode(BOOL)) == 0) {
-            [propertyDescription setValue:@"BOOL" forKey:@"type"];
+            propertyDescription[@"type"] = @"BOOL";
             readValue = NO;
             NSNumber *propertyValue;
             @try {
@@ -120,9 +124,9 @@ static NSMutableDictionary *kMap = nil;
             @catch (NSException *exception) {
                 propertyValue = nil;
             }
-            [propertyDescription setValue:(propertyValue.boolValue ? @"YES" : @"NO") forKey:@"value"];
+            propertyDescription[@"value"] = propertyValue.boolValue ? @"YES" : @"NO";
         } else if (strcmp(rawPropertyType, @encode(char)) == 0) {
-            [propertyDescription setValue:@"char" forKey:@"type"];
+            propertyDescription[@"type"] = @"char";
         } else if ( type && ( [type hasPrefix:@"{CGRect="] ) ) {
             readValue = NO;
             NSValue *propertyValue;
@@ -132,8 +136,9 @@ static NSMutableDictionary *kMap = nil;
             @catch (NSException *exception) {
                 propertyValue = nil;
             }
-            [propertyDescription setValue:[NSString stringWithFormat:@"%@", NSStringFromCGRect(propertyValue.CGRectValue)] forKey:@"value"];
-            [propertyDescription setValue:@"CGRect" forKey:@"type"];
+            
+            propertyDescription[@"value"] = NSStringFromCGRect(propertyValue.CGRectValue);
+            propertyDescription[@"type"] = @"CGRect";
         } else if ( type && ( [type hasPrefix:@"{CGPoint="] ) ) {
             readValue = NO;
             NSValue *propertyValue;
@@ -143,8 +148,8 @@ static NSMutableDictionary *kMap = nil;
             @catch (NSException *exception) {
                 propertyValue = nil;
             }
-            [propertyDescription setValue:[NSString stringWithFormat:@"%@", NSStringFromCGPoint(propertyValue.CGPointValue)] forKey:@"value"];
-            [propertyDescription setValue:@"CGPoint" forKey:@"type"];
+            propertyDescription[@"value"] = NSStringFromCGPoint(propertyValue.CGPointValue);
+            propertyDescription[@"type"] = @"CGPoint";
         } else if ( type && ( [type hasPrefix:@"{CGSize="] ) ) {
             readValue = NO;
             NSValue *propertyValue;
@@ -154,8 +159,8 @@ static NSMutableDictionary *kMap = nil;
             @catch (NSException *exception) {
                 propertyValue = nil;
             }
-            [propertyDescription setValue:[NSString stringWithFormat:@"%@", NSStringFromCGSize(propertyValue.CGSizeValue)] forKey:@"value"];
-            [propertyDescription setValue:@"CGSize" forKey:@"type"];
+            propertyDescription[@"value"] =  NSStringFromCGSize(propertyValue.CGSizeValue);
+            propertyDescription[@"type"] = @"CGSize";
         } else if ( type && ( [type hasPrefix:@"{CGAffineTransform="] ) ) {
             readValue = NO;
             CGAffineTransform *propertyValue;
@@ -165,8 +170,8 @@ static NSMutableDictionary *kMap = nil;
             @catch (NSException *exception) {
                 propertyValue = nil;
             }
-            [propertyDescription setValue:[NSString stringWithFormat:@"%@", NSStringFromCGAffineTransform2(*propertyValue)] forKey:@"value"];
-            [propertyDescription setValue:@"CGAffineTransform" forKey:@"type"];
+            propertyDescription[@"value"] = NSStringFromCGAffineTransform2(*propertyValue);
+            propertyDescription[@"type"] = @"CGAffineTransform";
         } else if ( type && ( [type hasPrefix:@"{CATransform3D="] ) ) {
             readValue = NO;
             CATransform3D *propertyValue;
@@ -176,8 +181,9 @@ static NSMutableDictionary *kMap = nil;
             @catch (NSException *exception) {
                 propertyValue = nil;
             }
-            [propertyDescription setValue:[NSString stringWithFormat:@"%@", NSStringFromCATransform3D(*propertyValue)] forKey:@"value"];
-            [propertyDescription setValue:@"CATransform3D" forKey:@"type"];
+            
+            propertyDescription[@"value"] = NSStringFromCATransform3D(*propertyValue);
+            propertyDescription[@"type"] = @"CATransform3D";
         } else if (type && [type hasPrefix:@"@"] && type.length > 3) {
             readValue = YES;
             checkOnlyIfNil = YES;
@@ -193,7 +199,7 @@ static NSMutableDictionary *kMap = nil;
                     propertyValue = nil;
                 }
                 
-                [propertyDescription setValue:(propertyValue ? UIColorToNSString(propertyValue) : @"nil") forKey:@"value"];
+                propertyDescription[@"value"] = propertyValue ? UIColorToNSString(propertyValue) : @"nil";
             }
             if ([typeClassName isEqualToString:[[NSString class] description]]) {
                 checkOnlyIfNil = NO;
@@ -224,9 +230,9 @@ static NSMutableDictionary *kMap = nil;
                 propertyValue = nil;
             }
             if (checkOnlyIfNil) {
-                [propertyDescription setValue:(propertyValue != nil ? @"OBJECT" : @"nil") forKey:@"value"];
+                propertyDescription[@"value"] = propertyValue != nil ? @"OBJECT" : @"nil";
             } else {
-                [propertyDescription setValue:(propertyValue != nil ? [NSString stringWithFormat:@"%@", propertyValue] : @"nil") forKey:@"value"];
+                propertyDescription[@"value"] = propertyValue != nil ? [NSString stringWithFormat:@"%@", propertyValue] : @"nil";
             }
         }
         [propertiesArray addObject:propertyDescription];
