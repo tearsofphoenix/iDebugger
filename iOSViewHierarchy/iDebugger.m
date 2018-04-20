@@ -13,6 +13,10 @@
 #import "IDFileScanner.h"
 #import "iDebugger.h"
 #import "SystemServices.h"
+#import "CRToastConfig.h"
+#import "CRToastManager.h"
+
+#import <objc/runtime.h>
 
 static iDebugger *kDebugger = nil;
 
@@ -38,6 +42,14 @@ static iDebugger *kDebugger = nil;
     if ((self = [super init]))
     {
         _server = [[GCDWebServer alloc] init];
+        [_server addHandlerForMethod: @"POST"
+                                path: @"/connect"
+                        requestClass: [GCDWebServerRequest class]
+                        processBlock: (^GCDWebServerResponse * _Nullable(__kindof GCDWebServerRequest * _Nonnull request)
+                                       {
+                                           id response = [GCDWebServerDataResponse responseWithJSONObject: (@{@"code": @1000})];
+                                           return response;
+                                       })];
         [_server addHandlerForMethod: @"GET"
                                 path: @"/view/snapshot"
                         requestClass: [GCDWebServerRequest class]
@@ -70,10 +82,20 @@ static iDebugger *kDebugger = nil;
                                                                UIView *view = [IDScanner findViewById: viewID];
                                                                NSLog(@"%@", view);
                                                                NSDictionary *property = body[@"property"];
-                                                               [view setValue: body[@"value"]
-                                                                       forKey: property[@"name"]];
-                                                               
-                                                               NSDictionary *responseDic = (@{ @"code": @1000 });                                                               
+                                                               NSString *type = property[@"type"];
+                                                               if ([type isEqualToString: @"UIColor"]) {
+                                                                   UIColor *color = IDHexStringToColor(body[@"value"]);
+                                                                   [view setValue: color
+                                                                           forKey: property[@"name"]];
+                                                               } else if ([type isEqualToString: @"CGColor"]) {
+                                                                   UIColor *color = IDHexStringToColor(body[@"value"]);
+                                                                   [view setValue: [color CGColor]
+                                                                           forKey: property[@"name"]];
+                                                               } else {
+                                                                   [view setValue: body[@"value"]
+                                                                           forKey: property[@"name"]];
+                                                               }
+                                                               NSDictionary *responseDic = (@{ @"code": @1000 });
                                                                GCDWebServerResponse *response = [GCDWebServerDataResponse responseWithJSONObject: responseDic];
                                                                completionBlock(response);
                                                            }));
@@ -117,10 +139,44 @@ static iDebugger *kDebugger = nil;
     return self;
 }
 
+static const char *getPropertyType(objc_property_t property) {
+    const char *attributes = property_getAttributes(property);
+    return attributes;
+}
+
 - (void)start
 {
-    [_server startWithPort: 9449
+    Class viewClass = [UIView class];
+    uint outCount = 0;
+    objc_property_t *properties = class_copyPropertyList(viewClass, &outCount);
+    for (int i = 0; i < outCount; ++i) {
+        objc_property_t property = properties[i];
+        const char *propName = property_getName(property);
+        if(propName) {
+            const char *propType = getPropertyType(property);
+            NSString *propertyName = [NSString stringWithCString:propName
+                                                        encoding:[NSString defaultCStringEncoding]];
+            NSString *propertyType = [NSString stringWithCString:propType
+                                                        encoding:[NSString defaultCStringEncoding]];
+            NSLog(@"%@ %@", propertyName, propertyType);
+        }
+    }
+    uint16_t port = 9449;
+    [_server startWithPort: port
                bonjourName: nil];
+    NSString *ip = [[SystemServices sharedServices] wiFiIPAddress];
+    NSString *text = [NSString stringWithFormat: @"debugger run at http://%@:%d", ip, port];
+    NSDictionary *options = @{
+                              kCRToastTextKey : text,
+                              kCRToastTextAlignmentKey : @(NSTextAlignmentCenter),
+                              kCRToastBackgroundColorKey : [UIColor redColor],
+                              kCRToastAnimationInTypeKey : @(CRToastAnimationTypeGravity),
+                              kCRToastAnimationOutTypeKey : @(CRToastAnimationTypeGravity),
+                              kCRToastAnimationInDirectionKey : @(CRToastAnimationDirectionLeft),
+                              kCRToastAnimationOutDirectionKey : @(CRToastAnimationDirectionRight)
+                              };
+    [CRToastManager showNotificationWithOptions: options
+                                completionBlock: nil];
 }
 
 #pragma mark -

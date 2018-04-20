@@ -14,7 +14,6 @@
 		6A026B2E20846C4B007CBA5F /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 6A026B2D20846C4B007CBA5F /* Assets.xcassets */; };
 		6A026B3120846C4B007CBA5F /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 6A026B2F20846C4B007CBA5F /* LaunchScreen.storyboard */; };
 		6A026B3420846C4B007CBA5F /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 6A026B3320846C4B007CBA5F /* main.m */; };
-		6A026B3D20846C73007CBA5F /* libiDebugger.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 7C861E34153DF2E000935C95 /* libiDebugger.a */; };
 		6A026B3F20846EFA007CBA5F /* libGCDWebServer-iOS8.0.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 6A026B3E20846EFA007CBA5F /* libGCDWebServer-iOS8.0.a */; };
 		6A026B4620848AFE007CBA5F /* iDebugger.h in Headers */ = {isa = PBXBuildFile; fileRef = 6A026B4420848AFE007CBA5F /* iDebugger.h */; };
 		6A026B4720848AFE007CBA5F /* iDebugger.h in Headers */ = {isa = PBXBuildFile; fileRef = 6A026B4420848AFE007CBA5F /* iDebugger.h */; settings = {ATTRIBUTES = (Public, ); }; };
@@ -28,6 +27,8 @@
 		6A0A169C20804FA600167432 /* index_core.html in Resources */ = {isa = PBXBuildFile; fileRef = 7C11395315E58063004AED3F /* index_core.html */; };
 		6A0A169E20804FA600167432 /* navbar.js in Resources */ = {isa = PBXBuildFile; fileRef = 7C11395715E580BA004AED3F /* navbar.js */; };
 		6A0A169F20804FA600167432 /* style.css in Resources */ = {isa = PBXBuildFile; fileRef = 7C11391615E57573004AED3F /* style.css */; };
+		6AD6CA8720886C17009AF211 /* libCRToast-iOS8.0.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 6AD6CA8620886C17009AF211 /* libCRToast-iOS8.0.a */; };
+		6AD6CA8820886C2D009AF211 /* iDebugKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6A0A168820804F6100167432 /* iDebugKit.framework */; };
 		6AEC08312085C171005605BE /* IDViewScanner.h in Headers */ = {isa = PBXBuildFile; fileRef = 6AEC082F2085C171005605BE /* IDViewScanner.h */; };
 		6AEC08322085C171005605BE /* IDViewScanner.h in Headers */ = {isa = PBXBuildFile; fileRef = 6AEC082F2085C171005605BE /* IDViewScanner.h */; };
 		6AEC08332085C171005605BE /* IDViewScanner.m in Sources */ = {isa = PBXBuildFile; fileRef = 6AEC08302085C171005605BE /* IDViewScanner.m */; };
@@ -48,14 +49,7 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
-		6A026B3820846C5D007CBA5F /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = 7C861E2B153DF2DF00935C95 /* Project object */;
-			proxyType = 1;
-			remoteGlobalIDString = 7C861E33153DF2E000935C95;
-			remoteInfo = iDebugger;
-		};
-		6A026B3A20846C62007CBA5F /* PBXContainerItemProxy */ = {
+		6AD6CA8920886C32009AF211 /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
 			containerPortal = 7C861E2B153DF2DF00935C95 /* Project object */;
 			proxyType = 1;
@@ -83,6 +77,7 @@
 		6A0A168820804F6100167432 /* iDebugKit.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = iDebugKit.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		6A0A168A20804F6100167432 /* iDebugKit.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = iDebugKit.h; sourceTree = "<group>"; };
 		6A0A168B20804F6100167432 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		6AD6CA8620886C17009AF211 /* libCRToast-iOS8.0.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; path = "libCRToast-iOS8.0.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 		6AEC082F2085C171005605BE /* IDViewScanner.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = IDViewScanner.h; sourceTree = "<group>"; };
 		6AEC08302085C171005605BE /* IDViewScanner.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = IDViewScanner.m; sourceTree = "<group>"; };
 		6AEC083B20864AD2005605BE /* IDFileScanner.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = IDFileScanner.h; sourceTree = "<group>"; };
@@ -113,7 +108,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				6A026B3D20846C73007CBA5F /* libiDebugger.a in Frameworks */,
+				6AD6CA8820886C2D009AF211 /* iDebugKit.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -129,6 +124,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				6AD6CA8720886C17009AF211 /* libCRToast-iOS8.0.a in Frameworks */,
 				6A026B3F20846EFA007CBA5F /* libGCDWebServer-iOS8.0.a in Frameworks */,
 				7C861E38153DF2E000935C95 /* Foundation.framework in Frameworks */,
 				8981E3AA90C16C36FADD6367 /* libPods-iDebugger.a in Frameworks */,
@@ -190,6 +186,7 @@
 		7C861E36153DF2E000935C95 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				6AD6CA8620886C17009AF211 /* libCRToast-iOS8.0.a */,
 				6A026B3E20846EFA007CBA5F /* libGCDWebServer-iOS8.0.a */,
 				7CD97A5415B299E500CBAAA1 /* QuartzCore.framework */,
 				7C861E37153DF2E000935C95 /* Foundation.framework */,
@@ -307,8 +304,7 @@
 			buildRules = (
 			);
 			dependencies = (
-				6A026B3B20846C62007CBA5F /* PBXTargetDependency */,
-				6A026B3920846C5D007CBA5F /* PBXTargetDependency */,
+				6AD6CA8A20886C32009AF211 /* PBXTargetDependency */,
 			);
 			name = iDebugDemo;
 			productName = iDebugDemo;
@@ -324,7 +320,6 @@
 				6A0A168420804F6100167432 /* Frameworks */,
 				6A0A168520804F6100167432 /* Headers */,
 				6A0A168620804F6100167432 /* Resources */,
-				26F710CCDADC8211533792FC /* [CP] Copy Pods Resources */,
 			);
 			buildRules = (
 			);
@@ -343,7 +338,6 @@
 				7C861E30153DF2E000935C95 /* Sources */,
 				7C861E31153DF2E000935C95 /* Frameworks */,
 				7C861E32153DF2E000935C95 /* Headers */,
-				9A150849514C5313F19FC1CE /* [CP] Copy Pods Resources */,
 			);
 			buildRules = (
 			);
@@ -419,21 +413,6 @@
 /* End PBXResourcesBuildPhase section */
 
 /* Begin PBXShellScriptBuildPhase section */
-		26F710CCDADC8211533792FC /* [CP] Copy Pods Resources */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputPaths = (
-			);
-			name = "[CP] Copy Pods Resources";
-			outputPaths = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-iDebugKit/Pods-iDebugKit-resources.sh\"\n";
-			showEnvVarsInLog = 0;
-		};
 		4C0243170886A47020D92C96 /* [CP] Check Pods Manifest.lock */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
@@ -468,21 +447,6 @@
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
 			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
-			showEnvVarsInLog = 0;
-		};
-		9A150849514C5313F19FC1CE /* [CP] Copy Pods Resources */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputPaths = (
-			);
-			name = "[CP] Copy Pods Resources";
-			outputPaths = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-iDebugger/Pods-iDebugger-resources.sh\"\n";
 			showEnvVarsInLog = 0;
 		};
 /* End PBXShellScriptBuildPhase section */
@@ -528,15 +492,10 @@
 /* End PBXSourcesBuildPhase section */
 
 /* Begin PBXTargetDependency section */
-		6A026B3920846C5D007CBA5F /* PBXTargetDependency */ = {
-			isa = PBXTargetDependency;
-			target = 7C861E33153DF2E000935C95 /* iDebugger */;
-			targetProxy = 6A026B3820846C5D007CBA5F /* PBXContainerItemProxy */;
-		};
-		6A026B3B20846C62007CBA5F /* PBXTargetDependency */ = {
+		6AD6CA8A20886C32009AF211 /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
 			target = 6A0A168720804F6100167432 /* iDebugKit */;
-			targetProxy = 6A026B3A20846C62007CBA5F /* PBXContainerItemProxy */;
+			targetProxy = 6AD6CA8920886C32009AF211 /* PBXContainerItemProxy */;
 		};
 /* End PBXTargetDependency section */
 

@@ -17,6 +17,8 @@ extern NSString* NSStringFromCATransform3D(CATransform3D transform);
 
 extern NSString* NSStringFromCGAffineTransform2(CGAffineTransform transform);
 
+extern UIColor *IDHexStringToColor(NSString *hexString);
+
 @interface  IDScanner : NSObject
 
 + (NSDictionary *)recursivePropertiesScan:(UIView *)view;

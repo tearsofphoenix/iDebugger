@@ -29,13 +29,12 @@ static NSMutableDictionary *kMap = nil;
     
     [self addPropertyArray: (@[
                                @{@"name": @"clipToBounds", @"type": @"TB"},
-                               @{@"name": @"alpha", @"type": @"Td", @"ext": @{ @"min": @0, @"max": @1}},
+                               @{@"name": @"alpha", @"type": @"Td", @"ext": @{ @"min": @0, @"max": @1, @"scale": @100}},
                                @{@"name": @"hidden", @"type": @"TB"},
-                               @{@"name": @"backgroundColor", @"type": @"T^{CGColor=}"},
+                               @{@"name": @"backgroundColor", @"type": @"T@\"UIColor\""},
                                @{@"name": @"opaque", @"type": @"TB"},
                                @{@"name": @"clearsContextBeforeDrawing", @"type": @"TB"},
-                               @{@"name": @"hidden", @"type": @"TB"},
-                               @{@"name": @"tintColor", @"type": @"T^{CGColor=}"}                        
+                               @{@"name": @"tintColor", @"type": @"T@\"UIColor\""}
                                ])
                    forName: @"UIViewRendering"];
     
@@ -44,7 +43,7 @@ static NSMutableDictionary *kMap = nil;
                                @{@"name": @"cornerRadius", @"type": @"Td"},
                                @{@"name": @"borderWidth", @"type": @"Td"},
                                @{@"name": @"borderColor", @"type": @"T^{CGColor=}"},
-                               @{@"name": @"opacity", @"type": @"Td", @"ext": @{ @"min": @0, @"max": @1}},
+                               @{@"name": @"opacity", @"type": @"Td", @"ext": @{ @"min": @0, @"max": @1, @"scale": @100}},
                                @{@"name": @"shadowColor", @"type": @"T^{CGColor=}"},
                                @{@"name": @"shadowOpacity", @"type": @"Td"},
                                @{@"name": @"shadowRadius", @"type": @"Td"},
@@ -187,9 +186,9 @@ static NSMutableDictionary *kMap = nil;
         } else if (type && [type hasPrefix:@"@"] && type.length > 3) {
             readValue = YES;
             checkOnlyIfNil = YES;
-            NSString *typeClassName = [type substringWithRange:NSMakeRange(2, type.length - 3)];
-            [propertyDescription setValue:typeClassName forKey:@"type"];
-            if ([typeClassName isEqualToString:[[UIColor class] description]]) {
+            NSString *typeClassName = [type substringWithRange: NSMakeRange(2, type.length - 3)];
+            propertyDescription[@"type"] = typeClassName;
+            if ([typeClassName isEqualToString: NSStringFromClass([UIColor class])]) {
                 readValue = NO;
                 id propertyValue;
                 @try {
@@ -199,7 +198,7 @@ static NSMutableDictionary *kMap = nil;
                     propertyValue = nil;
                 }
                 
-                propertyDescription[@"value"] = propertyValue ? UIColorToNSString(propertyValue) : @"nil";
+                propertyDescription[@"value"] = UIColorToNSString(propertyValue);
             }
             if ([typeClassName isEqualToString:[[NSString class] description]]) {
                 checkOnlyIfNil = NO;
@@ -209,16 +208,16 @@ static NSMutableDictionary *kMap = nil;
             }
         } else if ([type hasPrefix: @"^{CGColor=}"]) {
             
-//            propertyDescription[@"type"] = @"UIColor";
-//            readValue = NO;
-//            id propertyValue = nil;
-//            @try {
-//                propertyValue = [obj valueForKey:propertyName];
-//            }
-//            @catch (NSException *exception) {
-//                propertyValue = nil;
-//            }
-//            propertyDescription[@"value"] = (propertyValue ? CGColorToNSString((__bridge CGColorRef)propertyValue) : @"nil");
+            propertyDescription[@"type"] = @"UIColor";
+            readValue = NO;
+            id propertyValue = nil;
+            @try {
+                propertyValue = [obj valueForKey:propertyName];
+            }
+            @catch (NSException *exception) {
+                propertyValue = nil;
+            }
+            propertyDescription[@"value"] = CGColorToNSString((__bridge CGColorRef)propertyValue);
         } else {
             [propertyDescription setValue:propertyType forKey:@"type"];
         }

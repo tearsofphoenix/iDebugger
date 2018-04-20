@@ -10,6 +10,18 @@
 #import "IDScanner.h"
 #import "IDViewScanner.h"
 
+UIColor *IDHexStringToColor(NSString *hexString)
+{
+    unsigned rgbValue = 0;
+    NSScanner *scanner = [NSScanner scannerWithString: hexString];
+    [scanner setScanLocation: 1]; // bypass '#' character
+    [scanner scanHexInt: &rgbValue];
+    return [UIColor colorWithRed: ((rgbValue & 0xFF0000) >> 16) / 255.0
+                           green: ((rgbValue & 0xFF00) >> 8) / 255.0
+                            blue: (rgbValue & 0xFF) / 255.0
+                           alpha: 1.0];
+}
+
 static NSArray *kPropertyBlackList = nil;
 static NSArray *kClassIgnoreList = nil;
 
@@ -65,49 +77,18 @@ NSString *UIColorToNSString(UIColor *color)
 NSString *CGColorToNSString(CGColorRef color)
 {
     if (color) {
-        CGColorSpaceRef colorSpace = CGColorGetColorSpace(color);
-        CGColorSpaceModel model = CGColorSpaceGetModel(colorSpace);
+        const CGFloat *components = CGColorGetComponents(color);
         
-        NSString *prefix = @"A???";
-        switch (model) {
-            case kCGColorSpaceModelCMYK:
-                prefix = @"CMYKA";
-                break;
-            case kCGColorSpaceModelDeviceN:
-                prefix = @"DeviceNA";
-                break;
-            case kCGColorSpaceModelIndexed:
-                prefix = @"IndexedA";
-                break;
-            case kCGColorSpaceModelLab:
-                prefix = @"LabA";
-                break;
-            case kCGColorSpaceModelMonochrome:
-                prefix = @"MONOA";
-                break;
-            case kCGColorSpaceModelPattern:
-                prefix = @"APattern";
-                break;
-            case kCGColorSpaceModelRGB:
-                prefix = @"RGBA";
-                break;
-            case kCGColorSpaceModelUnknown:
-                prefix = @"A???";
-                break;
-        }
-        size_t n = CGColorGetNumberOfComponents(color);
-        const CGFloat *componentsArray = CGColorGetComponents(color);
+        CGFloat r = components[0];
+        CGFloat g = components[1];
+        CGFloat b = components[2];
         
-        NSMutableArray *array = [[NSMutableArray alloc] initWithCapacity:n];
-        //[array addObject:[NSNumber numberWithInt:(int)(CGColorGetAlpha([color CGColor])*255.0f)]];
-        for (size_t i = 0; i < n; ++i) {
-            [array addObject:@((int)(componentsArray[i] * 255.0f))];
-        }
-        NSString *components = [array componentsJoinedByString:@","];
-        
-        return [NSString stringWithFormat:@"%@(%@)", prefix, components];
+        return [NSString stringWithFormat:@"#%02lX%02lX%02lX",
+                lroundf(r * 255),
+                lroundf(g * 255),
+                lroundf(b * 255)];
     }
-    return @"nil";
+    return @"#000000";
 }
 
 NSString* NSStringFromCGAffineTransform2(CGAffineTransform transform)
