@@ -27,6 +27,9 @@
 		6A0A169C20804FA600167432 /* index_core.html in Resources */ = {isa = PBXBuildFile; fileRef = 7C11395315E58063004AED3F /* index_core.html */; };
 		6A0A169E20804FA600167432 /* navbar.js in Resources */ = {isa = PBXBuildFile; fileRef = 7C11395715E580BA004AED3F /* navbar.js */; };
 		6A0A169F20804FA600167432 /* style.css in Resources */ = {isa = PBXBuildFile; fileRef = 7C11391615E57573004AED3F /* style.css */; };
+		6AD253A2208DCD6F00A14FC7 /* IDViewUpdator.h in Headers */ = {isa = PBXBuildFile; fileRef = 6AD253A0208DCD6F00A14FC7 /* IDViewUpdator.h */; };
+		6AD253A3208DCD6F00A14FC7 /* IDViewUpdator.m in Sources */ = {isa = PBXBuildFile; fileRef = 6AD253A1208DCD6F00A14FC7 /* IDViewUpdator.m */; };
+		6AD253A4208DD2AF00A14FC7 /* IDViewUpdator.m in Sources */ = {isa = PBXBuildFile; fileRef = 6AD253A1208DCD6F00A14FC7 /* IDViewUpdator.m */; };
 		6AD6CA8720886C17009AF211 /* libCRToast-iOS8.0.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 6AD6CA8620886C17009AF211 /* libCRToast-iOS8.0.a */; };
 		6AD6CA8820886C2D009AF211 /* iDebugKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6A0A168820804F6100167432 /* iDebugKit.framework */; };
 		6AEC08312085C171005605BE /* IDViewScanner.h in Headers */ = {isa = PBXBuildFile; fileRef = 6AEC082F2085C171005605BE /* IDViewScanner.h */; };
@@ -77,6 +80,8 @@
 		6A0A168820804F6100167432 /* iDebugKit.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = iDebugKit.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		6A0A168A20804F6100167432 /* iDebugKit.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = iDebugKit.h; sourceTree = "<group>"; };
 		6A0A168B20804F6100167432 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		6AD253A0208DCD6F00A14FC7 /* IDViewUpdator.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = IDViewUpdator.h; sourceTree = "<group>"; };
+		6AD253A1208DCD6F00A14FC7 /* IDViewUpdator.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = IDViewUpdator.m; sourceTree = "<group>"; };
 		6AD6CA8620886C17009AF211 /* libCRToast-iOS8.0.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; path = "libCRToast-iOS8.0.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 		6AEC082F2085C171005605BE /* IDViewScanner.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = IDViewScanner.h; sourceTree = "<group>"; };
 		6AEC08302085C171005605BE /* IDViewScanner.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = IDViewScanner.m; sourceTree = "<group>"; };
@@ -207,6 +212,8 @@
 				6A026B4520848AFE007CBA5F /* iDebugger.m */,
 				6AEC082F2085C171005605BE /* IDViewScanner.h */,
 				6AEC08302085C171005605BE /* IDViewScanner.m */,
+				6AD253A0208DCD6F00A14FC7 /* IDViewUpdator.h */,
+				6AD253A1208DCD6F00A14FC7 /* IDViewUpdator.m */,
 				6AEC083B20864AD2005605BE /* IDFileScanner.h */,
 				6AEC083C20864AD2005605BE /* IDFileScanner.m */,
 			);
@@ -282,6 +289,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				6AEC083D20864AD2005605BE /* IDFileScanner.h in Headers */,
+				6AD253A2208DCD6F00A14FC7 /* IDViewUpdator.h in Headers */,
 				7CE955DE1540C5CB0042A03A /* IDScanner.h in Headers */,
 				7CB3BD70158A44CF0001D338 /* HVBaseRequestHandler.h in Headers */,
 				7CE2ED1415E40CDE00684792 /* HVCoreDataHandler.h in Headers */,
@@ -467,6 +475,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				6AD253A4208DD2AF00A14FC7 /* IDViewUpdator.m in Sources */,
 				6A0A169520804F8100167432 /* HVCoreDataHandler.m in Sources */,
 				6A0A169620804F8100167432 /* HVBaseRequestHandler.m in Sources */,
 				6AEC08342085C171005605BE /* IDViewScanner.m in Sources */,
@@ -484,6 +493,7 @@
 				6A026B4820848AFE007CBA5F /* iDebugger.m in Sources */,
 				6AEC08332085C171005605BE /* IDViewScanner.m in Sources */,
 				6AEC083F20864AD2005605BE /* IDFileScanner.m in Sources */,
+				6AD253A3208DCD6F00A14FC7 /* IDViewUpdator.m in Sources */,
 				7CB3BD71158A44CF0001D338 /* HVBaseRequestHandler.m in Sources */,
 				7CE2ED1515E40CDE00684792 /* HVCoreDataHandler.m in Sources */,
 			);

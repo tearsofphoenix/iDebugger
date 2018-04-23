@@ -11,6 +11,7 @@
 
 #import "IDScanner.h"
 #import "IDFileScanner.h"
+#import "IDViewUpdator.h"
 #import "iDebugger.h"
 #import "SystemServices.h"
 #import "CRToastConfig.h"
@@ -74,47 +75,17 @@ static iDebugger *kDebugger = nil;
                                        {
                                            GCDWebServerDataRequest *req = request;
                                            NSDictionary *body = [req jsonObject];
-                                           NSLog(@"65 %@", body);
                                            NSInteger viewID = [body[@"target"] integerValue];
-                                           dispatch_async(dispatch_get_main_queue(),
-                                                          (^
-                                                           {
-                                                               UIView *view = [IDScanner findViewById: viewID];
-                                                               NSLog(@"%@", view);
-                                                               NSDictionary *property = body[@"property"];
-                                                               NSString *type = property[@"type"];
-                                                               if ([type isEqualToString: @"UIColor"]) {
-                                                                   UIColor *color = IDHexStringToColor(body[@"value"]);
-                                                                   [view setValue: color
-                                                                           forKey: property[@"name"]];
-                                                               } else if ([type isEqualToString: @"CGColor"]) {
-                                                                   UIColor *color = IDHexStringToColor(body[@"value"]);
-                                                                   [view setValue: [color CGColor]
-                                                                           forKey: property[@"name"]];
-                                                               } else if ([type isEqualToString: @"CGRect"]) {
-                                                                   CGRect rect = CGRectFromString(body[@"value"]);
-                                                                   NSValue *value = [NSValue valueWithCGRect: rect];
-                                                                   [view setValue: value
-                                                                           forKey: property[@"name"]];
-                                                               } else if ([type isEqualToString: @"CGSize"]) {
-                                                                   CGSize size = CGSizeFromString(body[@"value"]);
-                                                                   NSValue *value = [NSValue valueWithCGSize: size];
-                                                                   [view setValue: value
-                                                                           forKey: property[@"name"]];
-                                                               } else if ([type isEqualToString: @"CGPoint"]) {
-                                                                   CGPoint point = CGPointFromString(body[@"value"]);
-                                                                   NSValue *value = [NSValue valueWithCGPoint: point];
-                                                                   [view setValue: value
-                                                                           forKey: property[@"name"]];
-                                                               } else {
-                                                                   [view setValue: body[@"value"]
-                                                                           forKey: property[@"name"]];
-                                                               }
-                                                               NSDictionary *responseDic = (@{ @"code": @1000 });
-                                                               GCDWebServerResponse *response = [GCDWebServerDataResponse responseWithJSONObject: responseDic];
-                                                               completionBlock(response);
-                                                           }));
-                                           
+                                           NSDictionary *property = body[@"property"];
+                                           [IDViewUpdator updateValue: body[@"value"]
+                                                             property: property
+                                                              forView: viewID
+                                                           completion: (^
+                                                                        {
+                                                                            NSDictionary *responseDic = (@{ @"code": @1000 });
+                                                                            GCDWebServerResponse *response = [GCDWebServerDataResponse responseWithJSONObject: responseDic];
+                                                                            completionBlock(response);
+                                                                        })];
                                        })];
         __weak __typeof__(self) weakSelf = self;
         [_server addHandlerForMethod: @"GET"
