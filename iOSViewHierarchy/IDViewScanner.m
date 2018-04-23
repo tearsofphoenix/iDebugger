@@ -229,9 +229,9 @@ static NSMutableDictionary *kMap = nil;
                 propertyValue = nil;
             }
             if (checkOnlyIfNil) {
-                propertyDescription[@"value"] = propertyValue != nil ? @"OBJECT" : @"nil";
+                propertyDescription[@"value"] = propertyValue != nil ? @"OBJECT" : @"0";
             } else {
-                propertyDescription[@"value"] = propertyValue != nil ? [NSString stringWithFormat:@"%@", propertyValue] : @"nil";
+                propertyDescription[@"value"] = propertyValue != nil ? [NSString stringWithFormat:@"%@", propertyValue] : @"0";
             }
         }
         [propertiesArray addObject:propertyDescription];

@@ -11,6 +11,6 @@
 
 + (NSArray *)hierarchyOfPath: (NSString *)path;
 
-+ (NSDictionary *)allPath;
++ (NSArray *)allPath;
 
 @end

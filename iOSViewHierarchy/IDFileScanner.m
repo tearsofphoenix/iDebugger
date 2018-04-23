@@ -35,16 +35,29 @@
     return result;
 }
 
-+ (NSDictionary *)allPath
++ (NSArray *)allPath
 {
     NSString *path = NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES)[0];
-    NSMutableDictionary *result = [NSMutableDictionary dictionary];
-    result[@"Documents"] = [self hierarchyOfPath: path];
+
+    NSArray *documents = [self hierarchyOfPath: path];
     path = NSSearchPathForDirectoriesInDomains(NSLibraryDirectory, NSUserDomainMask, YES)[0];
-    result[@"Library"] = [self hierarchyOfPath: path];
+    NSArray *libraries = [self hierarchyOfPath: path];
     path = NSSearchPathForDirectoriesInDomains(NSCachesDirectory, NSUserDomainMask, YES)[0];
-    result[@"Caches"] = [self hierarchyOfPath: path];
-    return result;
+    NSArray *caches = [self hierarchyOfPath: path];
+    return @[
+             (@{
+                @"name": @"Documents",
+                @"list": documents
+                }),
+             (@{
+                @"name": @"Library",
+                @"list": libraries
+                }),
+             (@{
+                @"name": @"Caches",
+                @"list": caches
+                })
+             ];
 }
 
 @end

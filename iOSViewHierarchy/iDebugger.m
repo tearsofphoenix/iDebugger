@@ -91,6 +91,21 @@ static iDebugger *kDebugger = nil;
                                                                    UIColor *color = IDHexStringToColor(body[@"value"]);
                                                                    [view setValue: [color CGColor]
                                                                            forKey: property[@"name"]];
+                                                               } else if ([type isEqualToString: @"CGRect"]) {
+                                                                   CGRect rect = CGRectFromString(body[@"value"]);
+                                                                   NSValue *value = [NSValue valueWithCGRect: rect];
+                                                                   [view setValue: value
+                                                                           forKey: property[@"name"]];
+                                                               } else if ([type isEqualToString: @"CGSize"]) {
+                                                                   CGSize size = CGSizeFromString(body[@"value"]);
+                                                                   NSValue *value = [NSValue valueWithCGSize: size];
+                                                                   [view setValue: value
+                                                                           forKey: property[@"name"]];
+                                                               } else if ([type isEqualToString: @"CGPoint"]) {
+                                                                   CGPoint point = CGPointFromString(body[@"value"]);
+                                                                   NSValue *value = [NSValue valueWithCGPoint: point];
+                                                                   [view setValue: value
+                                                                           forKey: property[@"name"]];
                                                                } else {
                                                                    [view setValue: body[@"value"]
                                                                            forKey: property[@"name"]];
