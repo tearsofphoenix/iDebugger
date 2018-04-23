@@ -9,8 +9,6 @@
 
 @interface IDFileScanner : NSObject
 
-+ (NSArray *)hierarchyOfPath: (NSString *)path;
-
 + (NSArray *)allPath;
 
 @end

@@ -7,57 +7,60 @@
 
 #import "IDFileScanner.h"
 
-@implementation IDFileScanner
+static NSMutableDictionary *infoOfFile(NSString *path)
+{
+    NSURL *bundleURL = [NSURL fileURLWithPath: path];
+    NSArray *keys = @[NSURLNameKey, NSURLPathKey, NSURLIsDirectoryKey, NSURLCreationDateKey, NSURLFileSizeKey];
+    NSMutableDictionary *result = [NSMutableDictionary dictionaryWithDictionary: [bundleURL resourceValuesForKeys: keys
+                                                                                                            error: NULL]];
+    result[NSURLCreationDateKey] = @([result[NSURLCreationDateKey] timeIntervalSince1970]);
+    return result;
+}
 
-+ (NSArray *)hierarchyOfPath: (NSString *)path
+static NSArray *contentOfFolder(NSString *path)
 {
     NSFileManager *fileManager = [NSFileManager defaultManager];
     NSURL *bundleURL = [NSURL fileURLWithPath: path];
-    NSArray *keys = @[NSURLNameKey, NSURLIsDirectoryKey, NSURLCreationDateKey, NSURLFileSizeKey];
-    NSDirectoryEnumerator *enumerator = [fileManager enumeratorAtURL: bundleURL
-                                          includingPropertiesForKeys: keys
-                                                             options: NSDirectoryEnumerationSkipsHiddenFiles
-                                                        errorHandler: (^BOOL(NSURL *url, NSError *error)
-                                                                       {
-                                                                           NSLog(@"[Error] %@ (%@)", error, url);
-                                                                           return YES;
-                                                                       })];
+    NSArray *keys = @[NSURLNameKey, NSURLPathKey, NSURLIsDirectoryKey, NSURLCreationDateKey, NSURLFileSizeKey];
+    NSArray *contents = [fileManager contentsOfDirectoryAtURL: bundleURL
+                                   includingPropertiesForKeys: keys
+                                                      options: NSDirectoryEnumerationSkipsHiddenFiles
+                                                        error: NULL];
     
     NSMutableArray *result = [NSMutableArray array];
-    for (NSURL *fileURL in enumerator)
+    for (NSURL *fileURL in contents)
     {
         NSDictionary *dict = [fileURL resourceValuesForKeys: keys
                                                       error: NULL];
         NSMutableDictionary *obj = [NSMutableDictionary dictionaryWithDictionary: dict];
+        if ([dict[NSURLIsDirectoryKey] boolValue])
+        {
+            NSArray *subcontents = contentOfFolder(dict[NSURLPathKey]);
+            obj[@"contents"] = subcontents;
+        }
         obj[NSURLCreationDateKey] = @([dict[NSURLCreationDateKey] timeIntervalSince1970]);
         [result addObject: obj];
     }
     return result;
 }
 
+@implementation IDFileScanner
+
 + (NSArray *)allPath
 {
     NSString *path = NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES)[0];
-
-    NSArray *documents = [self hierarchyOfPath: path];
+    NSMutableArray *result = [NSMutableArray array];
+    NSArray *documents = contentOfFolder(path);
+    NSMutableDictionary *info = infoOfFile(path);
+    info[@"contents"] = documents;
+    [result addObject: info];
     path = NSSearchPathForDirectoriesInDomains(NSLibraryDirectory, NSUserDomainMask, YES)[0];
-    NSArray *libraries = [self hierarchyOfPath: path];
-    path = NSSearchPathForDirectoriesInDomains(NSCachesDirectory, NSUserDomainMask, YES)[0];
-    NSArray *caches = [self hierarchyOfPath: path];
-    return @[
-             (@{
-                @"name": @"Documents",
-                @"list": documents
-                }),
-             (@{
-                @"name": @"Library",
-                @"list": libraries
-                }),
-             (@{
-                @"name": @"Caches",
-                @"list": caches
-                })
-             ];
+    NSArray *libraries = contentOfFolder(path);
+    info = infoOfFile(path);
+    info[@"contents"] = libraries;
+    [result addObject: info];
+    
+    return result;
 }
 
 @end
