@@ -112,6 +112,20 @@ static iDebugger *kDebugger = nil;
                                        })];
         
         [_server addHandlerForMethod: @"GET"
+                                path: @"/file/one"
+                        requestClass: [GCDWebServerRequest class]
+                   asyncProcessBlock: (^(__kindof GCDWebServerRequest * _Nonnull request, GCDWebServerCompletionBlock  _Nonnull completionBlock)
+                                       {
+                                           NSString *path = [request query][@"path"];
+                                           NSData *data = [NSData dataWithContentsOfFile: path
+                                                                                 options: 0
+                                                                                   error: NULL];
+                                           id response = [GCDWebServerDataResponse responseWithData: data
+                                                                                        contentType: @"text/html"];
+                                           completionBlock(response);
+                                       })];
+        
+        [_server addHandlerForMethod: @"GET"
                                 path: @"/system/info"
                         requestClass: [GCDWebServerRequest class]
                    asyncProcessBlock: (^(__kindof GCDWebServerRequest * _Nonnull request, GCDWebServerCompletionBlock  _Nonnull completionBlock)
