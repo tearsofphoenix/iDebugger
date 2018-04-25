@@ -6,6 +6,10 @@
 //
 
 #import "IDFileScanner.h"
+#import "GCDWebServer.h"
+#import "GCDWebServerFileResponse.h"
+#import "GCDWebServerDataResponse.h"
+#import "GCDWebServerDataRequest.h"
 
 static NSMutableDictionary *infoOfFile(NSString *path)
 {
@@ -61,6 +65,98 @@ static NSArray *contentOfFolder(NSString *path)
     [result addObject: info];
     
     return result;
+}
+
++ (void)registerAPI: (GCDWebServer *)server
+{
+    [server addHandlerForMethod: @"GET"
+                           path: @"/file/list"
+                   requestClass: [GCDWebServerRequest class]
+              asyncProcessBlock: (^(__kindof GCDWebServerRequest * _Nonnull request, GCDWebServerCompletionBlock  _Nonnull completionBlock)
+                                  {
+                                      id result = [IDFileScanner allPath];
+                                      NSLog(@"%@", result);
+                                      id response = [GCDWebServerDataResponse responseWithJSONObject: result];
+                                      completionBlock(response);
+                                  })];
+    
+    [server addHandlerForMethod: @"GET"
+                           path: @"/file/one"
+                   requestClass: [GCDWebServerRequest class]
+              asyncProcessBlock: (^(__kindof GCDWebServerRequest * _Nonnull request, GCDWebServerCompletionBlock  _Nonnull completionBlock)
+                                  {
+                                      NSString *path = [request query][@"path"];
+                                      NSData *data = [NSData dataWithContentsOfFile: path
+                                                                            options: 0
+                                                                              error: NULL];
+                                      id response = [GCDWebServerDataResponse responseWithData: data
+                                                                                   contentType: @"text/html"];
+                                      completionBlock(response);
+                                  })];
+    
+    [server addHandlerForMethod: @"POST"
+                           path: @"/file/remove"
+                   requestClass: [GCDWebServerDataRequest class]
+                   processBlock: (^GCDWebServerResponse * _Nullable(__kindof GCDWebServerDataRequest * _Nonnull request)
+                                  {
+                                      NSFileManager *manager = [NSFileManager defaultManager];
+                                      NSDictionary *body = [request jsonObject];
+                                      NSString *path = body[NSURLPathKey];
+                                      NSLog(@"105 %@", path);
+                                      NSError *error = nil;
+                                      if([manager removeItemAtPath: path
+                                                             error: &error])
+                                      {
+                                          return [GCDWebServerDataResponse responseWithJSONObject: (@{
+                                                                                                      @"code": @1000
+                                                                                                      })];
+                                      } else {
+                                          return [GCDWebServerDataResponse responseWithJSONObject: (@{
+                                                                                                      @"code": @2000,
+                                                                                                      @"message": [error description]
+                                                                                                      })];
+                                      }
+                                  })];
+
+    [server addHandlerForMethod: @"POST"
+                           path: @"/file/download"
+                   requestClass: [GCDWebServerDataRequest class]
+                   processBlock: (^GCDWebServerResponse * _Nullable(__kindof GCDWebServerDataRequest * _Nonnull request)
+                                  {
+                                      NSDictionary *body = [request jsonObject];
+                                      NSString *path = body[NSURLPathKey];
+                                      NSLog(@"129 %@", path);
+                                      NSData *data = [NSData dataWithContentsOfFile: path];
+                                      return [GCDWebServerDataResponse responseWithData: data
+                                                                            contentType: @"application/octet-stream"];
+                                  })];
+
+    [server addHandlerForMethod: @"POST"
+                           path: @"/file/rename"
+                   requestClass: [GCDWebServerDataRequest class]
+                   processBlock: (^GCDWebServerResponse * _Nullable(__kindof GCDWebServerDataRequest * _Nonnull request)
+                                  {
+                                      NSFileManager *manager = [NSFileManager defaultManager];
+                                      NSDictionary *body = [request jsonObject];
+                                      NSString *path = body[@"file"][NSURLPathKey];
+                                      NSString *name = body[@"name"];
+                                      NSString *newPath = [[path stringByDeletingLastPathComponent] stringByAppendingPathComponent: name];
+                                      NSLog(@"129 %@ %@ %@", path, name, newPath);
+                                      NSError *error = nil;
+                                      if([manager moveItemAtPath: path
+                                                          toPath: newPath
+                                                           error: &error])
+                                      {
+                                          return [GCDWebServerDataResponse responseWithJSONObject: (@{
+                                                                                                      @"code": @1000
+                                                                                                      })];
+                                      } else {
+                                          return [GCDWebServerDataResponse responseWithJSONObject: (@{
+                                                                                                      @"code": @2000,
+                                                                                                      @"message": [error description]
+                                                                                                      })];
+                                      }
+                                  })];
 }
 
 @end

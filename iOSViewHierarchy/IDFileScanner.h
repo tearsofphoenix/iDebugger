@@ -7,8 +7,12 @@
 
 #import <Foundation/Foundation.h>
 
+@class GCDWebServer;
+
 @interface IDFileScanner : NSObject
 
 + (NSArray *)allPath;
+
++ (void)registerAPI: (GCDWebServer *)server;
 
 @end

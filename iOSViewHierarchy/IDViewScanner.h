@@ -6,6 +6,9 @@
 //
 
 #import <Foundation/Foundation.h>
+
+@class GCDWebServer;
+
 @protocol IDScanner<NSObject>
 
 + (NSArray *)scanPropertyOfObject: (id)object;
@@ -21,4 +24,7 @@
 
 + (NSArray *)scanProperties: (NSArray *)properties
                      object: (id) obj;
+
++ (void)registerAPI: (GCDWebServer *)server;
+
 @end
