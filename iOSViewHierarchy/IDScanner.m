@@ -8,7 +8,7 @@
 #import <math.h>
 #import <QuartzCore/QuartzCore.h>
 #import "IDScanner.h"
-#import "IDViewScanner.h"
+#import "IDViewAPI.h"
 
 UIColor *IDHexStringToColor(NSString *hexString)
 {
@@ -147,7 +147,7 @@ NSString* NSStringFromCATransform3D(CATransform3D transform)
         // put properties from super classes
         NSMutableArray *properties = [[NSMutableArray alloc] initWithCapacity:10];
         
-        [properties addObjectsFromArray: [IDViewScanner scanPropertyOfObject: view]];
+        [properties addObjectsFromArray: [IDViewAPI scanPropertyOfObject: view]];
         
         [viewDescription setValue:properties forKey:@"props"];
         

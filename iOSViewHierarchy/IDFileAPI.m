@@ -5,7 +5,7 @@
 //  Created by Isaac on 2018/4/17.
 //
 
-#import "IDFileScanner.h"
+#import "IDFileAPI.h"
 #import "GCDWebServer.h"
 #import "GCDWebServerFileResponse.h"
 #import "GCDWebServerDataResponse.h"
@@ -49,7 +49,7 @@ static NSArray *contentOfFolder(NSString *path)
     return result;
 }
 
-@implementation IDFileScanner
+@implementation IDFileAPI
 
 + (NSArray *)allPath
 {
@@ -75,7 +75,7 @@ static NSArray *contentOfFolder(NSString *path)
                    requestClass: [GCDWebServerRequest class]
               asyncProcessBlock: (^(__kindof GCDWebServerRequest * _Nonnull request, GCDWebServerCompletionBlock  _Nonnull completionBlock)
                                   {
-                                      id result = [IDFileScanner allPath];
+                                      id result = [IDFileAPI allPath];
                                       NSLog(@"%@", result);
                                       id response = [GCDWebServerDataResponse responseWithJSONObject: result];
                                       completionBlock(response);

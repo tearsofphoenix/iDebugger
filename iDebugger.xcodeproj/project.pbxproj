@@ -19,32 +19,27 @@
 		6A026B4720848AFE007CBA5F /* iDebugger.h in Headers */ = {isa = PBXBuildFile; fileRef = 6A026B4420848AFE007CBA5F /* iDebugger.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		6A026B4820848AFE007CBA5F /* iDebugger.m in Sources */ = {isa = PBXBuildFile; fileRef = 6A026B4520848AFE007CBA5F /* iDebugger.m */; };
 		6A026B4920848AFE007CBA5F /* iDebugger.m in Sources */ = {isa = PBXBuildFile; fileRef = 6A026B4520848AFE007CBA5F /* iDebugger.m */; };
+		6A02DAC520919B7600C1D6C6 /* IDNetworkAPI.h in Headers */ = {isa = PBXBuildFile; fileRef = 6A02DAC320919B7600C1D6C6 /* IDNetworkAPI.h */; };
+		6A02DAC620919B7600C1D6C6 /* IDNetworkAPI.h in Headers */ = {isa = PBXBuildFile; fileRef = 6A02DAC320919B7600C1D6C6 /* IDNetworkAPI.h */; };
+		6A02DAC720919B7600C1D6C6 /* IDNetworkAPI.m in Sources */ = {isa = PBXBuildFile; fileRef = 6A02DAC420919B7600C1D6C6 /* IDNetworkAPI.m */; };
+		6A02DAC820919B7700C1D6C6 /* IDNetworkAPI.m in Sources */ = {isa = PBXBuildFile; fileRef = 6A02DAC420919B7600C1D6C6 /* IDNetworkAPI.m */; };
+		6A02DACA20919CB100C1D6C6 /* IDFileAPI.m in Sources */ = {isa = PBXBuildFile; fileRef = 6A02DAC920919CB100C1D6C6 /* IDFileAPI.m */; };
+		6A02DACB20919CB100C1D6C6 /* IDFileAPI.m in Sources */ = {isa = PBXBuildFile; fileRef = 6A02DAC920919CB100C1D6C6 /* IDFileAPI.m */; };
 		6A0A168C20804F6100167432 /* iDebugKit.h in Headers */ = {isa = PBXBuildFile; fileRef = 6A0A168A20804F6100167432 /* iDebugKit.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		6A0A169520804F8100167432 /* HVCoreDataHandler.m in Sources */ = {isa = PBXBuildFile; fileRef = 7CE2ED1315E40CDE00684792 /* HVCoreDataHandler.m */; };
-		6A0A169620804F8100167432 /* HVBaseRequestHandler.m in Sources */ = {isa = PBXBuildFile; fileRef = 7CB3BD63158A44CF0001D338 /* HVBaseRequestHandler.m */; };
 		6A0A169820804F8100167432 /* IDScanner.m in Sources */ = {isa = PBXBuildFile; fileRef = 7CE955D11540C5CB0042A03A /* IDScanner.m */; };
-		6A0A169B20804FA600167432 /* index_ui.html in Resources */ = {isa = PBXBuildFile; fileRef = 7CB3BD75158A45690001D338 /* index_ui.html */; };
-		6A0A169C20804FA600167432 /* index_core.html in Resources */ = {isa = PBXBuildFile; fileRef = 7C11395315E58063004AED3F /* index_core.html */; };
-		6A0A169E20804FA600167432 /* navbar.js in Resources */ = {isa = PBXBuildFile; fileRef = 7C11395715E580BA004AED3F /* navbar.js */; };
-		6A0A169F20804FA600167432 /* style.css in Resources */ = {isa = PBXBuildFile; fileRef = 7C11391615E57573004AED3F /* style.css */; };
 		6AD253A2208DCD6F00A14FC7 /* IDViewUpdator.h in Headers */ = {isa = PBXBuildFile; fileRef = 6AD253A0208DCD6F00A14FC7 /* IDViewUpdator.h */; };
 		6AD253A3208DCD6F00A14FC7 /* IDViewUpdator.m in Sources */ = {isa = PBXBuildFile; fileRef = 6AD253A1208DCD6F00A14FC7 /* IDViewUpdator.m */; };
 		6AD253A4208DD2AF00A14FC7 /* IDViewUpdator.m in Sources */ = {isa = PBXBuildFile; fileRef = 6AD253A1208DCD6F00A14FC7 /* IDViewUpdator.m */; };
 		6AD6CA8720886C17009AF211 /* libCRToast-iOS8.0.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 6AD6CA8620886C17009AF211 /* libCRToast-iOS8.0.a */; };
 		6AD6CA8820886C2D009AF211 /* iDebugKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6A0A168820804F6100167432 /* iDebugKit.framework */; };
-		6AEC08312085C171005605BE /* IDViewScanner.h in Headers */ = {isa = PBXBuildFile; fileRef = 6AEC082F2085C171005605BE /* IDViewScanner.h */; };
-		6AEC08322085C171005605BE /* IDViewScanner.h in Headers */ = {isa = PBXBuildFile; fileRef = 6AEC082F2085C171005605BE /* IDViewScanner.h */; };
-		6AEC08332085C171005605BE /* IDViewScanner.m in Sources */ = {isa = PBXBuildFile; fileRef = 6AEC08302085C171005605BE /* IDViewScanner.m */; };
-		6AEC08342085C171005605BE /* IDViewScanner.m in Sources */ = {isa = PBXBuildFile; fileRef = 6AEC08302085C171005605BE /* IDViewScanner.m */; };
-		6AEC083D20864AD2005605BE /* IDFileScanner.h in Headers */ = {isa = PBXBuildFile; fileRef = 6AEC083B20864AD2005605BE /* IDFileScanner.h */; };
-		6AEC083E20864AD2005605BE /* IDFileScanner.h in Headers */ = {isa = PBXBuildFile; fileRef = 6AEC083B20864AD2005605BE /* IDFileScanner.h */; };
-		6AEC083F20864AD2005605BE /* IDFileScanner.m in Sources */ = {isa = PBXBuildFile; fileRef = 6AEC083C20864AD2005605BE /* IDFileScanner.m */; };
-		6AEC084020864AD2005605BE /* IDFileScanner.m in Sources */ = {isa = PBXBuildFile; fileRef = 6AEC083C20864AD2005605BE /* IDFileScanner.m */; };
+		6AEC08312085C171005605BE /* IDViewAPI.h in Headers */ = {isa = PBXBuildFile; fileRef = 6AEC082F2085C171005605BE /* IDViewAPI.h */; };
+		6AEC08322085C171005605BE /* IDViewAPI.h in Headers */ = {isa = PBXBuildFile; fileRef = 6AEC082F2085C171005605BE /* IDViewAPI.h */; };
+		6AEC08332085C171005605BE /* IDViewAPI.m in Sources */ = {isa = PBXBuildFile; fileRef = 6AEC08302085C171005605BE /* IDViewAPI.m */; };
+		6AEC08342085C171005605BE /* IDViewAPI.m in Sources */ = {isa = PBXBuildFile; fileRef = 6AEC08302085C171005605BE /* IDViewAPI.m */; };
+		6AEC083D20864AD2005605BE /* IDFileAPI.h in Headers */ = {isa = PBXBuildFile; fileRef = 6AEC083B20864AD2005605BE /* IDFileAPI.h */; };
+		6AEC083E20864AD2005605BE /* IDFileAPI.h in Headers */ = {isa = PBXBuildFile; fileRef = 6AEC083B20864AD2005605BE /* IDFileAPI.h */; };
 		7C861E38153DF2E000935C95 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 7C861E37153DF2E000935C95 /* Foundation.framework */; };
-		7CB3BD70158A44CF0001D338 /* HVBaseRequestHandler.h in Headers */ = {isa = PBXBuildFile; fileRef = 7CB3BD62158A44CF0001D338 /* HVBaseRequestHandler.h */; };
-		7CB3BD71158A44CF0001D338 /* HVBaseRequestHandler.m in Sources */ = {isa = PBXBuildFile; fileRef = 7CB3BD63158A44CF0001D338 /* HVBaseRequestHandler.m */; };
 		7CE2ED1415E40CDE00684792 /* HVCoreDataHandler.h in Headers */ = {isa = PBXBuildFile; fileRef = 7CE2ED1215E40CDE00684792 /* HVCoreDataHandler.h */; };
-		7CE2ED1515E40CDE00684792 /* HVCoreDataHandler.m in Sources */ = {isa = PBXBuildFile; fileRef = 7CE2ED1315E40CDE00684792 /* HVCoreDataHandler.m */; };
 		7CE955DE1540C5CB0042A03A /* IDScanner.h in Headers */ = {isa = PBXBuildFile; fileRef = 7CE955D01540C5CB0042A03A /* IDScanner.h */; };
 		7CE955DF1540C5CB0042A03A /* IDScanner.m in Sources */ = {isa = PBXBuildFile; fileRef = 7CE955D11540C5CB0042A03A /* IDScanner.m */; };
 		8981E3AA90C16C36FADD6367 /* libPods-iDebugger.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 146904B3C345F9D2992F766F /* libPods-iDebugger.a */; };
@@ -77,25 +72,21 @@
 		6A026B3E20846EFA007CBA5F /* libGCDWebServer-iOS8.0.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; path = "libGCDWebServer-iOS8.0.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 		6A026B4420848AFE007CBA5F /* iDebugger.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = iDebugger.h; sourceTree = "<group>"; };
 		6A026B4520848AFE007CBA5F /* iDebugger.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = iDebugger.m; sourceTree = "<group>"; };
+		6A02DAC320919B7600C1D6C6 /* IDNetworkAPI.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = IDNetworkAPI.h; sourceTree = "<group>"; };
+		6A02DAC420919B7600C1D6C6 /* IDNetworkAPI.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = IDNetworkAPI.m; sourceTree = "<group>"; };
+		6A02DAC920919CB100C1D6C6 /* IDFileAPI.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = IDFileAPI.m; sourceTree = "<group>"; };
 		6A0A168820804F6100167432 /* iDebugKit.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = iDebugKit.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		6A0A168A20804F6100167432 /* iDebugKit.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = iDebugKit.h; sourceTree = "<group>"; };
 		6A0A168B20804F6100167432 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		6AD253A0208DCD6F00A14FC7 /* IDViewUpdator.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = IDViewUpdator.h; sourceTree = "<group>"; };
 		6AD253A1208DCD6F00A14FC7 /* IDViewUpdator.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = IDViewUpdator.m; sourceTree = "<group>"; };
 		6AD6CA8620886C17009AF211 /* libCRToast-iOS8.0.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; path = "libCRToast-iOS8.0.a"; sourceTree = BUILT_PRODUCTS_DIR; };
-		6AEC082F2085C171005605BE /* IDViewScanner.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = IDViewScanner.h; sourceTree = "<group>"; };
-		6AEC08302085C171005605BE /* IDViewScanner.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = IDViewScanner.m; sourceTree = "<group>"; };
-		6AEC083B20864AD2005605BE /* IDFileScanner.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = IDFileScanner.h; sourceTree = "<group>"; };
-		6AEC083C20864AD2005605BE /* IDFileScanner.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = IDFileScanner.m; sourceTree = "<group>"; };
-		7C11391615E57573004AED3F /* style.css */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.css; path = style.css; sourceTree = "<group>"; };
-		7C11395315E58063004AED3F /* index_core.html */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.html; path = index_core.html; sourceTree = "<group>"; };
-		7C11395715E580BA004AED3F /* navbar.js */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.javascript; path = navbar.js; sourceTree = "<group>"; };
+		6AEC082F2085C171005605BE /* IDViewAPI.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = IDViewAPI.h; sourceTree = "<group>"; };
+		6AEC08302085C171005605BE /* IDViewAPI.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = IDViewAPI.m; sourceTree = "<group>"; };
+		6AEC083B20864AD2005605BE /* IDFileAPI.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = IDFileAPI.h; sourceTree = "<group>"; };
 		7C861E34153DF2E000935C95 /* libiDebugger.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libiDebugger.a; sourceTree = BUILT_PRODUCTS_DIR; };
 		7C861E37153DF2E000935C95 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
 		7C861E3B153DF2E000935C95 /* iDebugger-Prefix.pch */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "iDebugger-Prefix.pch"; sourceTree = "<group>"; };
-		7CB3BD62158A44CF0001D338 /* HVBaseRequestHandler.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HVBaseRequestHandler.h; sourceTree = "<group>"; };
-		7CB3BD63158A44CF0001D338 /* HVBaseRequestHandler.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HVBaseRequestHandler.m; sourceTree = "<group>"; };
-		7CB3BD75158A45690001D338 /* index_ui.html */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.html; path = index_ui.html; sourceTree = "<group>"; };
 		7CD97A5415B299E500CBAAA1 /* QuartzCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = QuartzCore.framework; path = System/Library/Frameworks/QuartzCore.framework; sourceTree = SDKROOT; };
 		7CE2ED1215E40CDE00684792 /* HVCoreDataHandler.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HVCoreDataHandler.h; sourceTree = "<group>"; };
 		7CE2ED1315E40CDE00684792 /* HVCoreDataHandler.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HVCoreDataHandler.m; sourceTree = "<group>"; };
@@ -204,18 +195,19 @@
 		7C861E39153DF2E000935C95 /* iOSViewHierarchy */ = {
 			isa = PBXGroup;
 			children = (
-				7CB3BD74158A45690001D338 /* webapp */,
 				7CB3BD56158A44CF0001D338 /* http */,
 				7CE955D01540C5CB0042A03A /* IDScanner.h */,
 				7CE955D11540C5CB0042A03A /* IDScanner.m */,
 				6A026B4420848AFE007CBA5F /* iDebugger.h */,
 				6A026B4520848AFE007CBA5F /* iDebugger.m */,
-				6AEC082F2085C171005605BE /* IDViewScanner.h */,
-				6AEC08302085C171005605BE /* IDViewScanner.m */,
+				6AEC082F2085C171005605BE /* IDViewAPI.h */,
+				6AEC08302085C171005605BE /* IDViewAPI.m */,
 				6AD253A0208DCD6F00A14FC7 /* IDViewUpdator.h */,
 				6AD253A1208DCD6F00A14FC7 /* IDViewUpdator.m */,
-				6AEC083B20864AD2005605BE /* IDFileScanner.h */,
-				6AEC083C20864AD2005605BE /* IDFileScanner.m */,
+				6AEC083B20864AD2005605BE /* IDFileAPI.h */,
+				6A02DAC920919CB100C1D6C6 /* IDFileAPI.m */,
+				6A02DAC320919B7600C1D6C6 /* IDNetworkAPI.h */,
+				6A02DAC420919B7600C1D6C6 /* IDNetworkAPI.m */,
 			);
 			path = iOSViewHierarchy;
 			sourceTree = "<group>";
@@ -233,8 +225,6 @@
 			isa = PBXGroup;
 			children = (
 				7CB3BD57158A44CF0001D338 /* api */,
-				7CB3BD62158A44CF0001D338 /* HVBaseRequestHandler.h */,
-				7CB3BD63158A44CF0001D338 /* HVBaseRequestHandler.m */,
 			);
 			path = http;
 			sourceTree = "<group>";
@@ -246,17 +236,6 @@
 				7CE2ED1315E40CDE00684792 /* HVCoreDataHandler.m */,
 			);
 			path = api;
-			sourceTree = "<group>";
-		};
-		7CB3BD74158A45690001D338 /* webapp */ = {
-			isa = PBXGroup;
-			children = (
-				7CB3BD75158A45690001D338 /* index_ui.html */,
-				7C11395315E58063004AED3F /* index_core.html */,
-				7C11395715E580BA004AED3F /* navbar.js */,
-				7C11391615E57573004AED3F /* style.css */,
-			);
-			path = webapp;
 			sourceTree = "<group>";
 		};
 		942E9B41814619F9948399A8 /* Pods */ = {
@@ -277,9 +256,10 @@
 			isa = PBXHeadersBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				6AEC083E20864AD2005605BE /* IDFileScanner.h in Headers */,
-				6AEC08322085C171005605BE /* IDViewScanner.h in Headers */,
+				6AEC083E20864AD2005605BE /* IDFileAPI.h in Headers */,
+				6AEC08322085C171005605BE /* IDViewAPI.h in Headers */,
 				6A0A168C20804F6100167432 /* iDebugKit.h in Headers */,
+				6A02DAC620919B7600C1D6C6 /* IDNetworkAPI.h in Headers */,
 				6A026B4720848AFE007CBA5F /* iDebugger.h in Headers */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -288,13 +268,13 @@
 			isa = PBXHeadersBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				6AEC083D20864AD2005605BE /* IDFileScanner.h in Headers */,
+				6AEC083D20864AD2005605BE /* IDFileAPI.h in Headers */,
 				6AD253A2208DCD6F00A14FC7 /* IDViewUpdator.h in Headers */,
 				7CE955DE1540C5CB0042A03A /* IDScanner.h in Headers */,
-				7CB3BD70158A44CF0001D338 /* HVBaseRequestHandler.h in Headers */,
 				7CE2ED1415E40CDE00684792 /* HVCoreDataHandler.h in Headers */,
+				6A02DAC520919B7600C1D6C6 /* IDNetworkAPI.h in Headers */,
 				6A026B4620848AFE007CBA5F /* iDebugger.h in Headers */,
-				6AEC08312085C171005605BE /* IDViewScanner.h in Headers */,
+				6AEC08312085C171005605BE /* IDViewAPI.h in Headers */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -411,10 +391,6 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				6A0A169B20804FA600167432 /* index_ui.html in Resources */,
-				6A0A169C20804FA600167432 /* index_core.html in Resources */,
-				6A0A169E20804FA600167432 /* navbar.js in Resources */,
-				6A0A169F20804FA600167432 /* style.css in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -476,10 +452,9 @@
 			buildActionMask = 2147483647;
 			files = (
 				6AD253A4208DD2AF00A14FC7 /* IDViewUpdator.m in Sources */,
-				6A0A169520804F8100167432 /* HVCoreDataHandler.m in Sources */,
-				6A0A169620804F8100167432 /* HVBaseRequestHandler.m in Sources */,
-				6AEC08342085C171005605BE /* IDViewScanner.m in Sources */,
-				6AEC084020864AD2005605BE /* IDFileScanner.m in Sources */,
+				6A02DAC820919B7700C1D6C6 /* IDNetworkAPI.m in Sources */,
+				6AEC08342085C171005605BE /* IDViewAPI.m in Sources */,
+				6A02DACB20919CB100C1D6C6 /* IDFileAPI.m in Sources */,
 				6A026B4920848AFE007CBA5F /* iDebugger.m in Sources */,
 				6A0A169820804F8100167432 /* IDScanner.m in Sources */,
 			);
@@ -491,11 +466,10 @@
 			files = (
 				7CE955DF1540C5CB0042A03A /* IDScanner.m in Sources */,
 				6A026B4820848AFE007CBA5F /* iDebugger.m in Sources */,
-				6AEC08332085C171005605BE /* IDViewScanner.m in Sources */,
-				6AEC083F20864AD2005605BE /* IDFileScanner.m in Sources */,
+				6A02DAC720919B7600C1D6C6 /* IDNetworkAPI.m in Sources */,
+				6A02DACA20919CB100C1D6C6 /* IDFileAPI.m in Sources */,
+				6AEC08332085C171005605BE /* IDViewAPI.m in Sources */,
 				6AD253A3208DCD6F00A14FC7 /* IDViewUpdator.m in Sources */,
-				7CB3BD71158A44CF0001D338 /* HVBaseRequestHandler.m in Sources */,
-				7CE2ED1515E40CDE00684792 /* HVCoreDataHandler.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

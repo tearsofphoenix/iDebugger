@@ -10,11 +10,12 @@
 #import "GCDWebServerDataRequest.h"
 
 #import "IDScanner.h"
-#import "IDFileScanner.h"
-#import "IDViewScanner.h"
+#import "IDFileAPI.h"
+#import "IDViewAPI.h"
 #import "IDViewUpdator.h"
 #import "iDebugger.h"
 #import "SystemServices.h"
+#import "IDNetworkAPI.h"
 #import "CRToastConfig.h"
 #import "CRToastManager.h"
 
@@ -169,8 +170,10 @@ static NSDictionary *kTypeMap = nil;
                                            id response = [GCDWebServerDataResponse responseWithJSONObject: (@{@"code": @1000})];
                                            return response;
                                        })];
-        [IDViewScanner registerAPI: _server];
-        [IDFileScanner registerAPI: _server];
+        
+        [IDViewAPI registerAPI: _server];
+        [IDFileAPI registerAPI: _server];
+        [IDNetworkAPI registerAPI: _server];
         
         [_server addHandlerForMethod: @"GET"
                                 path: @"/system/info"

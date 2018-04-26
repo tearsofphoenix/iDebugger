@@ -15,7 +15,7 @@
 
 @end
 
-@interface IDViewScanner : NSObject<IDScanner>
+@interface IDViewAPI : NSObject<IDScanner>
 
 + (void)addPropertyArray: (NSArray *)array
                  forName: (NSString *)name;

@@ -5,7 +5,7 @@
 //  Created by Isaac on 2018/4/17.
 //
 
-#import "IDViewScanner.h"
+#import "IDViewAPI.h"
 #import "IDScanner.h"
 #import "IDViewUpdator.h"
 
@@ -18,7 +18,7 @@
 
 static NSMutableDictionary *kMap = nil;
 
-@implementation IDViewScanner
+@implementation IDViewAPI
 
 + (void)load
 {
