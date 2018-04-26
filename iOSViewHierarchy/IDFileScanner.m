@@ -10,6 +10,7 @@
 #import "GCDWebServerFileResponse.h"
 #import "GCDWebServerDataResponse.h"
 #import "GCDWebServerDataRequest.h"
+#import "iDebugger.h"
 
 static NSMutableDictionary *infoOfFile(NSString *path)
 {
@@ -125,10 +126,9 @@ static NSArray *contentOfFolder(NSString *path)
                                   {
                                       NSDictionary *body = [request jsonObject];
                                       NSString *path = body[NSURLPathKey];
-                                      NSLog(@"129 %@", path);
                                       NSData *data = [NSData dataWithContentsOfFile: path];
                                       return [GCDWebServerDataResponse responseWithData: data
-                                                                            contentType: @"application/octet-stream"];
+                                                                            contentType: [iDebugger typeForPath: path]];
                                   })];
 
     [server addHandlerForMethod: @"POST"
