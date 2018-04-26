@@ -19,6 +19,8 @@
 #import "CRToastConfig.h"
 #import "CRToastManager.h"
 
+#import "NEHTTPEyeViewController.h"
+
 #import <objc/runtime.h>
 
 static iDebugger *kDebugger = nil;
@@ -185,6 +187,25 @@ static NSDictionary *kTypeMap = nil;
                                            id response = [GCDWebServerDataResponse responseWithJSONObject: result];
                                            completionBlock(response);
                                        })];
+        
+#if DEBUG
+        dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(10 * NSEC_PER_SEC)),
+                       dispatch_get_main_queue(),
+                       (^
+                        {
+                            [IDNetworkAPI testNetwork];
+                            
+                            dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(20 * NSEC_PER_SEC)),
+                                           dispatch_get_main_queue(), (^
+                                                                       {
+                                                                           NEHTTPEyeViewController *vc = [[NEHTTPEyeViewController alloc] init];
+                                                                           UIViewController *rootVC = [[[[UIApplication sharedApplication] delegate] window] rootViewController];
+                                                                           [rootVC presentViewController: vc
+                                                                                                animated: YES
+                                                                                              completion: nil];
+                                                                       }));
+                        }));
+#endif
     }
     return self;
 }
@@ -196,21 +217,21 @@ static const char *getPropertyType(objc_property_t property) {
 
 - (void)start
 {
-//    Class viewClass = [UIView class];
-//    uint outCount = 0;
-//    objc_property_t *properties = class_copyPropertyList(viewClass, &outCount);
-//    for (int i = 0; i < outCount; ++i) {
-//        objc_property_t property = properties[i];
-//        const char *propName = property_getName(property);
-//        if(propName) {
-//            const char *propType = getPropertyType(property);
-//            NSString *propertyName = [NSString stringWithCString:propName
-//                                                        encoding:[NSString defaultCStringEncoding]];
-//            NSString *propertyType = [NSString stringWithCString:propType
-//                                                        encoding:[NSString defaultCStringEncoding]];
-//            NSLog(@"%@ %@", propertyName, propertyType);
-//        }
-//    }
+    //    Class viewClass = [UIView class];
+    //    uint outCount = 0;
+    //    objc_property_t *properties = class_copyPropertyList(viewClass, &outCount);
+    //    for (int i = 0; i < outCount; ++i) {
+    //        objc_property_t property = properties[i];
+    //        const char *propName = property_getName(property);
+    //        if(propName) {
+    //            const char *propType = getPropertyType(property);
+    //            NSString *propertyName = [NSString stringWithCString:propName
+    //                                                        encoding:[NSString defaultCStringEncoding]];
+    //            NSString *propertyType = [NSString stringWithCString:propType
+    //                                                        encoding:[NSString defaultCStringEncoding]];
+    //            NSLog(@"%@ %@", propertyName, propertyType);
+    //        }
+    //    }
     uint16_t port = 9449;
     [_server startWithPort: port
                bonjourName: nil];

@@ -13,4 +13,10 @@
 
 + (void)registerAPI: (GCDWebServer *)server;
 
+#if DEBUG
+
++ (void)testNetwork;
+
+#endif
+
 @end
